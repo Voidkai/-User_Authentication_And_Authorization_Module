@@ -1,0 +1,7 @@
+---
+applications:
+- name: auth-exp
+  random-route: true
+  memory: 1G
+  disk: 1G
+  path: target/exp-0.0.1-SNAPSHOT.jar
