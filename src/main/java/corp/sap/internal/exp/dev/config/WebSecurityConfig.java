@@ -1,4 +1,4 @@
-package corp.sap.internal.exp.config;
+package corp.sap.internal.exp.dev.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
