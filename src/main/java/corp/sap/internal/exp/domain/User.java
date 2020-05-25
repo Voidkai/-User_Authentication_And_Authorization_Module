@@ -1,4 +1,4 @@
-package corp.sap.internal.exp.domin;
+package corp.sap.internal.exp.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
