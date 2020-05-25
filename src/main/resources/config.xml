@@ -13,7 +13,7 @@
         <!-- 只扫描开发环境下使用的类 -->
         <context:component-scan base-package="corp.sap.internal.exp.dev" />
         <!-- 加载开发使用的配置文件 -->
-        <util:properties id="config" location="classpath:dev/config.properties"/>
+        <util:properties id="config" location="classpath:dev/application-dev.properties"/>
     </beans>
 
     <!-- 定义生产使用的profile -->
@@ -21,7 +21,7 @@
         <!-- 只扫描生产环境下使用的类 -->
         <context:component-scan base-package="corp.sap.internal.exp.produce" />
         <!-- 加载生产使用的配置文件 -->
-        <util:properties id="config" location="classpath:produce/config.properties"/>
+        <util:properties id="config" location="classpath:produce/application-prod.properties"/>
     </beans>
 
 </beans>
