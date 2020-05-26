@@ -1,8 +1,11 @@
 package corp.sap.internal.exp.domain;
 
-public class Role {
+import java.io.Serializable;
+
+public class Role implements Serializable {
 
     private int role_id;
+
     private String name;
 
     public int getRole_id() {

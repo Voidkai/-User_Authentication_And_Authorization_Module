@@ -1,30 +1,57 @@
 package corp.sap.internal.exp.config;
 
+import corp.sap.internal.exp.authentication.AuthenticationEntryPointImpl;
+import corp.sap.internal.exp.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalAuthentication
+@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    AuthenticationEntryPointImpl authenticationEntryPointImpl;
+    @Bean
+    protected UserDetailsService userDetailsService(){
+        return new UserService();
+    }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+        //configure the way of auth
+        auth.userDetailsService(userDetailsService());
+    }
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception{
+        //HTTP configuration, includes login and logout, exception and session management and soon
+        httpSecurity
                 .authorizeRequests()
-                .and()
+                    .antMatchers("/login").permitAll()
+                    .and()
+                .authorizeRequests().antMatchers("/user/getUser").hasAnyAuthority("query_user").anyRequest().authenticated()
+                    .and()
                 .formLogin()
-                .loginPage("/login").failureForwardUrl("/login-error")
-                //.successForwardUrl("/index")
-                .permitAll();
+                    .loginPage("/login")
+                    .loginProcessingUrl("/login")
+                    .failureUrl("/login?error")
+                    .permitAll()
+                    .and()
+                .logout()
+                    .permitAll()
+                    .and()
+                .exceptionHandling()
+                    .authenticationEntryPoint(authenticationEntryPointImpl);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 }

@@ -15,7 +15,15 @@ public class User implements UserDetails {
 
     private String password;
 
-    private Set<SimpleGrantedAuthority> permissions;
+    private Set<SimpleGrantedAuthority> privileges;
+
+    public User(){}
+
+    public User(String username, String password,Collection<? extends GrantedAuthority> authorities){
+        this.username = username;
+        this.password = password;
+        this.privileges = (Set<SimpleGrantedAuthority>) authorities;
+    }
 
     public Integer getId(){
         return id;
@@ -25,6 +33,20 @@ public class User implements UserDetails {
         this.id = id;
     }
 
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", permissions=" + privileges +
+                '}';
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
