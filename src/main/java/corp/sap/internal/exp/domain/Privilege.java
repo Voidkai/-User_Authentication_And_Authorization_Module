@@ -1,6 +1,8 @@
 package corp.sap.internal.exp.domain;
 
-public class Privilege {
+import java.io.Serializable;
+
+public class Privilege implements Serializable {
 
     private int privilege_id;
     private String name;
