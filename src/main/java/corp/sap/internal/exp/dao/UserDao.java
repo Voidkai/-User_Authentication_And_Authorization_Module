@@ -5,6 +5,7 @@ import corp.sap.internal.exp.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import sun.security.util.Password;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Repository
 public class UserDao {
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
@@ -50,6 +52,7 @@ public class UserDao {
 
         return user;
     }
+
     public void addUser(String username,String password){
         String sql = "insert into users(user_id,username,password) values(null,?,?)";
         jdbcTemplate.update(sql, preparedStatement -> {
@@ -57,4 +60,5 @@ public class UserDao {
             preparedStatement.setString(2, passwordEncoder.encode(password));
         });
     }
+
 }

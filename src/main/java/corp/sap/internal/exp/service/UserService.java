@@ -7,18 +7,20 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class UserService{
+public class UserService {
+
     @Autowired
     UserDao userDao;
 
-
-    public void addUser(String username,String password){
-        userDao.addUser(username,password);
+    public void addUser(String username, String password) {
+        userDao.addUser(username, password);
     }
 
-    public User getUser(int id){return userDao.getUser(id);}
+    public User getUser(int id) {
+        return userDao.getUser(id);
+    }
 
-    public User findByUsername(String username){
+    public User findByUsername(String username) {
         return userDao.findByUsername(username);
     }
 

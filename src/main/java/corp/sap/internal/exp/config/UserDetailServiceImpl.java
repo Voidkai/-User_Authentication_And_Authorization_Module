@@ -30,11 +30,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
             throw new RuntimeException("用户不能为空");
         }
         User user = userService.findByUsername(s);
-        if(user == null){
-            throw new UsernameNotFoundException("not found user:"+s+"'s information.");
+        if (user == null) {
+            throw new UsernameNotFoundException("not found user:" + s + "'s information.");
         }
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        if(user != null){
+        if (user != null) {
             List privilegeLists = privilegeService.getprivByUser(user.getId());
 
             for (Object privilegeList : privilegeLists) {
@@ -43,6 +43,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 grantedAuthorities.add(grantedAuthority);
             }
         }
-        return new User(user.getUsername(),user.getPassword(),grantedAuthorities);
+        return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
 }
