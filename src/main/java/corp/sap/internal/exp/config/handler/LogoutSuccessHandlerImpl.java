@@ -1,7 +1,6 @@
 package corp.sap.internal.exp.config.handler;
 
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import corp.sap.internal.exp.config.JsonResult;
 import corp.sap.internal.exp.config.ResultTool;
 import org.springframework.security.core.Authentication;
