@@ -1,5 +1,6 @@
 package corp.sap.internal.exp.authentication;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import corp.sap.internal.exp.config.JsonResult;
 import corp.sap.internal.exp.config.ResultTool;
@@ -41,7 +42,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         //处理编码方式，防止中文乱码的情况
         httpServletResponse.setContentType("text/json;charset=utf-8");
         //塞到HttpServletResponse中返回给前台
-        ObjectMapper mapper = new ObjectMapper();
-        httpServletResponse.getWriter().write(mapper.writeValueAsString(result.toString()));
+
+        httpServletResponse.getWriter().write(JSON.toJSONString(result));
     }
 }

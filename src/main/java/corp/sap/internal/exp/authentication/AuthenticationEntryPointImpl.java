@@ -1,5 +1,6 @@
 package corp.sap.internal.exp.authentication;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import corp.sap.internal.exp.config.JsonResult;
 import corp.sap.internal.exp.config.ResultCode;
@@ -20,7 +21,6 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException{
         JsonResult result = ResultTool.fail(ResultCode.USER_NOT_LOGIN);
         httpServletResponse.setContentType("text/json;charset=utf-8");
-        ObjectMapper mapper = new ObjectMapper();
-        httpServletResponse.getWriter().write(mapper.writeValueAsString(result.toString()));
+        httpServletResponse.getWriter().write(JSON.toJSONString(result));
     }
 }
