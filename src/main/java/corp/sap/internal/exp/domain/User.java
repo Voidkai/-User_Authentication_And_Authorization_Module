@@ -1,10 +1,12 @@
 package corp.sap.internal.exp.domain;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 public class User implements UserDetails {
@@ -15,7 +17,16 @@ public class User implements UserDetails {
 
     private String password;
 
-    private Set<SimpleGrantedAuthority> permissions;
+    private Set<SimpleGrantedAuthority> privileges;
+
+    public User(){
+    }
+
+    public User(String username, String password, Collection<? extends  GrantedAuthority> privileges){
+        this.username = username;
+        this.password = password;
+        this.privileges = (Set<SimpleGrantedAuthority>) privileges;
+    }
 
     public Integer getId(){
         return id;
