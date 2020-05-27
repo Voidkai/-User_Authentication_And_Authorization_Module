@@ -43,7 +43,7 @@ public class UserDao {
                 User user = new User();
                 user.setId(resultSet.getInt("user_id"));
                 user.setUsername(resultSet.getString("username"));
-
+                user.setPassword(resultSet.getString("password"));
                 return user;
             }
         });
