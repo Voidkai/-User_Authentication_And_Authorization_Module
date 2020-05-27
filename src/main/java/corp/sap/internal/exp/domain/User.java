@@ -11,6 +11,8 @@ import java.util.Set;
 
 public class User implements UserDetails {
 
+    private static final long serialVersionUID = 5953648330227989719L;
+
     private Integer id;
 
     private String username;
@@ -20,6 +22,11 @@ public class User implements UserDetails {
     private Set<SimpleGrantedAuthority> privileges;
 
     public User(){
+    }
+
+    public User(String username, String password){
+        this.username = username;
+        this.password = password;
     }
 
     public User(String username, String password, Collection<? extends  GrantedAuthority> privileges){
@@ -70,12 +77,12 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override

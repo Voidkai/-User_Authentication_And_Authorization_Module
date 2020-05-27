@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class ServiceTicket implements Serializable {
+    private static final long serialVersionUID = -8277734413593886973L;
     private int id;
     private Timestamp create_time;
     private int user_id;

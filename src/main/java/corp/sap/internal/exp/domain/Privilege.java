@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Privilege implements Serializable {
 
+    private static final long serialVersionUID = -3405368204674664773L;
+
     private int privilege_id;
     private String name;
     private String privilege_code;

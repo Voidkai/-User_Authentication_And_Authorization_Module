@@ -24,9 +24,5 @@ public class IndexController {
 		rt.put("service", "exp");
 		return rt;
 	}
-	@RequestMapping(value = "/login",method = RequestMethod.GET)
-	public String login() {
-		return "login";
-	}
 	
 }

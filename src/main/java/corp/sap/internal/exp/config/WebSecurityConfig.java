@@ -1,10 +1,9 @@
 package corp.sap.internal.exp.config;
 
-import corp.sap.internal.exp.authentication.AuthenticationEntryPointImpl;
-import corp.sap.internal.exp.authentication.AuthenticationFailureHandlerImpl;
-import corp.sap.internal.exp.authentication.AuthenticationSuccessHandlerImpl;
-import corp.sap.internal.exp.authentication.LogoutSuccessHandlerImpl;
-import corp.sap.internal.exp.service.UserService;
+import corp.sap.internal.exp.config.handler.AuthenticationEntryPointImpl;
+import corp.sap.internal.exp.config.handler.AuthenticationFailureHandlerImpl;
+import corp.sap.internal.exp.config.handler.AuthenticationSuccessHandlerImpl;
+import corp.sap.internal.exp.config.handler.LogoutSuccessHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,14 +31,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     @Bean
-    protected UserDetailsService userDetailsService(){
-        return new UserService();
+    public UserDetailsService userDetailsService(){
+        return new UserDetailServiceImpl();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         //configure the way of auth
-        auth.userDetailsService(userDetailsService());
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{
