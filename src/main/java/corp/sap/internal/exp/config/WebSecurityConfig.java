@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //HTTP configuration, includes login and logout, exception and session management and soon
         httpSecurity
                 .authorizeRequests()
-                    .antMatchers("/login").permitAll()
+                    .antMatchers("/","/login").permitAll()
                     .and()
                 .authorizeRequests().antMatchers("/user/getUser").hasAnyAuthority("query_user").anyRequest().authenticated()
                     .and()

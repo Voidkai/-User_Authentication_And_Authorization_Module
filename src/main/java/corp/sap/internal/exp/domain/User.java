@@ -28,6 +28,22 @@ public class User implements UserDetails {
         this.privileges = (Set<SimpleGrantedAuthority>) privileges;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<SimpleGrantedAuthority> getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(Set<SimpleGrantedAuthority> privileges) {
+        this.privileges = privileges;
+    }
+
     public Integer getId(){
         return id;
     }
