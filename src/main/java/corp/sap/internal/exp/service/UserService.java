@@ -17,11 +17,11 @@ public class UserService {
     }
 
     public User getUser(int id) {
-        return userDao.getUser(id);
+        return userDao.getUserByID(id);
     }
 
     public User findByUsername(String username) {
-        return userDao.findByUsername(username);
+        return userDao.findUserByName(username);
     }
 
 }

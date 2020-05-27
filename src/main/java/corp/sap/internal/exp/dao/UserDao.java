@@ -23,7 +23,7 @@ public class UserDao {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User getUser(int id){
+    public User getUserByID(int id){
         String sql = "select * from users where user_id =?";
         Object[] params = {id};
         User user = jdbcTemplate.queryForObject(sql, params, (resultSet, i) -> {
@@ -36,7 +36,7 @@ public class UserDao {
         return user;
     }
 
-    public User findByUsername(String username){
+    public User findUserByName(String username){
         String sql = "select * from users where username = ?";
         Object[] params = {username};
         User user = jdbcTemplate.queryForObject(sql, params, new RowMapper<User>() {

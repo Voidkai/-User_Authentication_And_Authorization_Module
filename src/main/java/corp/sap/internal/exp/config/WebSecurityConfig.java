@@ -49,11 +49,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/","/login").permitAll()
                     .and()
-                .authorizeRequests().antMatchers("/api/v3/user/getUser").hasAnyAuthority("query_user")
+                .authorizeRequests().antMatchers("/api/v3/user/getUserByID").hasAnyAuthority("query_user")
                     .and()
                 .formLogin()
                     .loginProcessingUrl("/login")
                     .permitAll()
+                    .successHandler(authenticationSuccessHandler)//登录成功处理逻辑
+                    .failureHandler(authenticationFailureHandler)//登录失败处理逻辑
                     .and()
                 .logout()
                     .permitAll()
