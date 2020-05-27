@@ -1,6 +1,9 @@
 package corp.sap.internal.exp.config;
 
 import corp.sap.internal.exp.authentication.AuthenticationEntryPointImpl;
+import corp.sap.internal.exp.authentication.AuthenticationFailureHandlerImpl;
+import corp.sap.internal.exp.authentication.AuthenticationSuccessHandlerImpl;
+import corp.sap.internal.exp.authentication.LogoutSuccessHandlerImpl;
 import corp.sap.internal.exp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +20,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    static AuthenticationEntryPointImpl authenticationEntryPointImpl;
+    AuthenticationEntryPointImpl authenticationEntryPoint;
+
+    @Autowired
+    AuthenticationSuccessHandlerImpl authenticationSuccessHandler;
+
+    @Autowired
+    AuthenticationFailureHandlerImpl authenticationFailureHandler;
+
+    @Autowired
+    LogoutSuccessHandlerImpl logoutSuccessHandler;
+
     @Bean
     protected UserDetailsService userDetailsService(){
         return new UserService();
@@ -42,12 +55,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/login")
                     .failureUrl("/login?error")
                     .permitAll()
+                    .successHandler(authenticationSuccessHandler)
+                    .failureHandler(authenticationFailureHandler)
                     .and()
                 .logout()
                     .permitAll()
+                    .logoutSuccessHandler(logoutSuccessHandler)
                     .and()
                 .exceptionHandling()
-                    .authenticationEntryPoint(authenticationEntryPointImpl);
+                    .authenticationEntryPoint(authenticationEntryPoint)
+                    .and()
+                .sessionManagement()
+                    .maximumSessions(1);
+
+
     }
 
     @Bean
