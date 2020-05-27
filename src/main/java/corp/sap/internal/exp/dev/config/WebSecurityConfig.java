@@ -1,4 +1,4 @@
-package corp.sap.internal.exp.config;
+package corp.sap.internal.exp.dev.config;
 
 import corp.sap.internal.exp.authentication.AuthenticationEntryPointImpl;
 import corp.sap.internal.exp.service.UserService;

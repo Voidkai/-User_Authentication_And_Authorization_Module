@@ -1,4 +1,4 @@
-package corp.sap.internal.exp.domain;
+package corp.sap.internal.exp.dev.domain;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package corp.sap.internal.exp.domain;
+package corp.sap.internal.exp.dev.domain;
 
 public class Privilege {
 

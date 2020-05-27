@@ -1,4 +1,4 @@
-package corp.sap.internal.exp.controllers;
+package corp.sap.internal.exp.dev.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +24,7 @@ public class IndexController {
 		rt.put("service", "exp");
 		return rt;
 	}
+	
 	//@GetMapping(value = "/login")
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
 	public String login() {
