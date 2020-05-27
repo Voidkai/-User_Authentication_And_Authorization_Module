@@ -44,6 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         //HTTP configuration, includes login and logout, exception and session management and soon
         httpSecurity
+                .httpBasic()
+                .and()
                 .authorizeRequests()
                     .antMatchers("/","/login").permitAll()
                     .and()

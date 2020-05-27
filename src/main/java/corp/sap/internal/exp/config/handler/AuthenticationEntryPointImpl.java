@@ -1,10 +1,7 @@
 package corp.sap.internal.exp.config.handler;
 
-import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import corp.sap.internal.exp.config.JsonResult;
-import corp.sap.internal.exp.config.ResultCode;
-import corp.sap.internal.exp.config.ResultTool;
+import corp.sap.internal.exp.ResponseWrapper;
+import corp.sap.internal.exp.ProcessingStatusCode;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -19,8 +16,8 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException{
-        JsonResult result = ResultTool.fail(ResultCode.USER_NOT_LOGIN);
-        httpServletResponse.setContentType("text/json;charset=utf-8");
-        httpServletResponse.getWriter().write(JSON.toJSONString(result));
+        ResponseWrapper result = ResponseWrapper.fail(ProcessingStatusCode.USER_NOT_LOGIN);
+        httpServletResponse.setContentType("application/json;charset=utf-8");
+        httpServletResponse.getWriter().write(result.toString());
     }
 }

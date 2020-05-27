@@ -1,6 +1,6 @@
-package corp.sap.internal.exp.config;
+package corp.sap.internal.exp;
 
-public enum ResultCode {
+public enum ProcessingStatusCode {
     /* 成功 */
     SUCCESS(200, "成功"),
 
@@ -29,7 +29,7 @@ public enum ResultCode {
     private Integer code;
     private String message;
 
-    ResultCode(Integer code, String message) {
+    ProcessingStatusCode(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -51,7 +51,7 @@ public enum ResultCode {
     }
 
     public static String getMessageByCode(Integer code) {
-        for (ResultCode ele : values()) {
+        for (ProcessingStatusCode ele : values()) {
             if (ele.getCode().equals(code)) {
                 return ele.getMessage();
             }
