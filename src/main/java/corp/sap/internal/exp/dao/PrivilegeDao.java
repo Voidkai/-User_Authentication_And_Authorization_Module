@@ -6,13 +6,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class PrivilegeDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<Privilege> getprivByUser(int id){
+    public List<Map<String,Object>> getprivByUser(int id){
         String sql = "SELECT DISTINCT p.* FROM users AS u " +
                 "LEFT JOIN role_user AS ur " +
                 "ON" +

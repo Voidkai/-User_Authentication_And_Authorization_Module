@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class User implements UserDetails {
 
     private String password;
 
-    private Set<SimpleGrantedAuthority> privileges;
+    private List<GrantedAuthority> privileges;
 
     public User(){
     }
@@ -29,10 +30,10 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public User(String username, String password, Collection<? extends  GrantedAuthority> privileges){
+    public User(String username, String password,List<GrantedAuthority>  privileges){
         this.username = username;
         this.password = password;
-        this.privileges = (Set<SimpleGrantedAuthority>) privileges;
+        this.privileges = privileges;
     }
 
     public void setUsername(String username) {
@@ -43,11 +44,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Set<SimpleGrantedAuthority> getPrivileges() {
-        return privileges;
-    }
-
-    public void setPrivileges(Set<SimpleGrantedAuthority> privileges) {
+    public void setPrivileges(List<GrantedAuthority> privileges) {
         this.privileges = privileges;
     }
 
@@ -62,7 +59,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return privileges;
     }
 
     @Override

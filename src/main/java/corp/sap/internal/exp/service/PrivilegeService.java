@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PrivilegeService {
@@ -13,7 +14,7 @@ public class PrivilegeService {
     PrivilegeDao privilegeDao;
 
 
-    public List<Privilege> getprivByUser(int id){
+    public List<Map<String,Object>> getprivByUser(int id){
         return privilegeDao.getprivByUser(id);
     }
 
