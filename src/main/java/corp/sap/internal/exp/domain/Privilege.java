@@ -4,6 +4,15 @@ public class Privilege {
 
     private int privilege_id;
     private String name;
+    private String privilege_code;
+
+    public String getPrivilege_code() {
+        return privilege_code;
+    }
+
+    public void setPrivilege_code(String privilege_code) {
+        this.privilege_code = privilege_code;
+    }
 
     public int getPrivilege_id() {
         return privilege_id;
