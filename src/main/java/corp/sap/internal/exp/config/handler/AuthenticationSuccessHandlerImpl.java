@@ -18,7 +18,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
     UserDetailsService userDetailsService;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException{
+    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
 
         //返回json数据
         ResponseWrapper result = ResponseWrapper.success();

@@ -36,7 +36,7 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
         } else if (e instanceof InternalAuthenticationServiceException) {
             //用户不存在
             result = ResponseWrapper.fail(ProcessingStatusCode.USER_ACCOUNT_NOT_EXIST);
-        }else{
+        } else {
             //其他错误
             result = ResponseWrapper.fail(ProcessingStatusCode.COMMON_FAIL);
         }
