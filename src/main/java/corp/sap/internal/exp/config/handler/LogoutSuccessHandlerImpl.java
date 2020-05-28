@@ -1,6 +1,6 @@
 package corp.sap.internal.exp.config.handler;
 
-import corp.sap.internal.exp.ResponseWrapper;
+import corp.sap.internal.exp.DTO.ResponseWrapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;

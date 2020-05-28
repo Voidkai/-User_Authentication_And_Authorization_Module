@@ -20,15 +20,15 @@ public class ServiceTicketService {
         return serviceTicketDao.getTicketByUserID(id);
     }
 
-    public void addTicket(int user_id, String content) {
-        serviceTicketDao.addTicket(user_id, content);
+    public int addTicket(int user_id, String content) {
+        return serviceTicketDao.addTicket(user_id, content);
     }
 
-    public void updateTicket(int id, String content) {
-        serviceTicketDao.updateTicket(id, content);
+    public int updateTicket(int id, String content) {
+        return serviceTicketDao.updateTicket(id, content);
     }
 
-    public void delTicket(int id) {
-        serviceTicketDao.delTicket(id);
+    public int delTicket(int id) {
+        return serviceTicketDao.delTicket(id);
     }
 }

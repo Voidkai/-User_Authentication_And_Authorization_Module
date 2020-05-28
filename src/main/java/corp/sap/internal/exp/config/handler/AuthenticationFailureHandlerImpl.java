@@ -1,7 +1,7 @@
 package corp.sap.internal.exp.config.handler;
 
-import corp.sap.internal.exp.ResponseWrapper;
-import corp.sap.internal.exp.ProcessingStatusCode;
+import corp.sap.internal.exp.DTO.ResponseWrapper;
+import corp.sap.internal.exp.utils.ProcessingStatusCode;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;

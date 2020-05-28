@@ -6,24 +6,24 @@ public class Privilege implements Serializable {
 
     private static final long serialVersionUID = -3405368204674664773L;
 
-    private int privilege_id;
+    private int privilegeId;
     private String name;
-    private String privilege_code;
+    private String privilegeCode;
 
-    public String getPrivilege_code() {
-        return privilege_code;
+    public String getPrivilegeCode() {
+        return privilegeCode;
     }
 
-    public void setPrivilege_code(String privilege_code) {
-        this.privilege_code = privilege_code;
+    public void setPrivilegeCode(String privilegeCode) {
+        this.privilegeCode = privilegeCode;
     }
 
-    public int getPrivilege_id() {
-        return privilege_id;
+    public int getPrivilegeId() {
+        return privilegeId;
     }
 
-    public void setPrivilege_id(int privilege_id) {
-        this.privilege_id = privilege_id;
+    public void setPrivilegeId(int privilegeId) {
+        this.privilegeId = privilegeId;
     }
 
     public String getName() {

@@ -1,6 +1,7 @@
-package corp.sap.internal.exp;
+package corp.sap.internal.exp.DTO;
 
 import com.alibaba.fastjson.JSON;
+import corp.sap.internal.exp.utils.ProcessingStatusCode;
 
 import java.io.Serializable;
 

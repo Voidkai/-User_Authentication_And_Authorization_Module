@@ -6,23 +6,23 @@ import java.sql.Timestamp;
 public class ServiceTicket implements Serializable {
     private static final long serialVersionUID = -8277734413593886973L;
     private int id;
-    private Timestamp update_time;
-    private int user_id;
+    private Timestamp updateTime;
+    private int userId;
     private String content;
 
-    public ServiceTicket(int id, Timestamp update_time, int user_id, String content) {
+    public ServiceTicket(int id, Timestamp updateTime, int userId, String content) {
         this.id = id;
-        this.update_time = update_time;
-        this.user_id = user_id;
+        this.updateTime = updateTime;
+        this.userId = userId;
         this.content = content;
     }
 
-    public Timestamp getUpdate_time() {
-        return update_time;
+    public Timestamp getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(Timestamp update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(Timestamp updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getContent() {
@@ -41,11 +41,11 @@ public class ServiceTicket implements Serializable {
         this.id = id;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

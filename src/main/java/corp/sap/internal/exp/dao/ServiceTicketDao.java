@@ -39,21 +39,21 @@ public class ServiceTicketDao {
         return getTicket(sql);
     }
 
-    public void addTicket(int user_id, String content) {
+    public int addTicket(int user_id, String content) {
         String sql = "insert into service_ticket values (null,CURRENT_TIMESTAMP," + user_id + ", '" + content + "')";
-        jdbcTemplate.execute(sql);
+        return jdbcTemplate.update(sql);
     }
 
-    public void updateTicket(int id, String content) {
+    public int updateTicket(int id, String content) {
         String sql = "update service_ticket set update_time=current_timestamp,content='" + content + "' where id = " + id;
 
-        jdbcTemplate.execute(sql);
+        return jdbcTemplate.update(sql);
     }
 
-    public void delTicket(int id) {
+    public int delTicket(int id) {
         String sql = "delete from service_ticket where id =" + id;
 
-        jdbcTemplate.execute(sql);
+        return jdbcTemplate.update(sql);
     }
 
 }
