@@ -30,7 +30,8 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public User(String username, String password,List<GrantedAuthority>  privileges){
+    public User(Integer id,String username, String password,List<GrantedAuthority>  privileges){
+        this.id = id;
         this.username = username;
         this.password = password;
         this.privileges = privileges;

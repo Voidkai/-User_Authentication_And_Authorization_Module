@@ -48,14 +48,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                     .antMatchers("/","/login").permitAll()
-                    .and()
-                .authorizeRequests().antMatchers("/api/v3/user/getUserByID").hasAnyAuthority("query_user")
+                    .antMatchers("/api/v3/serviceTicket/addTicket").hasAuthority("create_ticket")
+                    .antMatchers("/api/v3/serviceTicket/getTicket").hasAuthority("query_ticket")
+                    .antMatchers("/api/v3/serviceTicket/updateTicket").hasAuthority("update_ticket")
+                    .antMatchers("/api/v3/serviceTicket/delTicket").hasAuthority("delete_ticket")
                     .and()
                 .formLogin()
                     .loginProcessingUrl("/login")
                     .permitAll()
-                    .successHandler(authenticationSuccessHandler)//登录成功处理逻辑
-                    .failureHandler(authenticationFailureHandler)//登录失败处理逻辑
+//                    .successHandler(authenticationSuccessHandler)//登录成功处理逻辑
+//                    .failureHandler(authenticationFailureHandler)//登录失败处理逻辑
                     .and()
                 .logout()
                     .permitAll()
