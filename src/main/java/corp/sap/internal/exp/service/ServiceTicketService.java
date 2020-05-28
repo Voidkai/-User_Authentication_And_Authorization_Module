@@ -12,15 +12,23 @@ public class ServiceTicketService {
     @Autowired
     ServiceTicketDao serviceTicketDao;
 
-    public List<ServiceTicket> getTicketByUserID(int id){
+    public List<ServiceTicket> getAllTicket() {
+        return serviceTicketDao.getAllTicket();
+    }
+
+    public List<ServiceTicket> getTicketByUserID(int id) {
         return serviceTicketDao.getTicketByUserID(id);
     }
 
-    public void addTicket(int user_id,String content){
-        serviceTicketDao.addTicket(user_id,content);
+    public void addTicket(int user_id, String content) {
+        serviceTicketDao.addTicket(user_id, content);
     }
 
-    public void updateTicket(int id,String content){ serviceTicketDao.updateTicket(id,content);}
+    public void updateTicket(int id, String content) {
+        serviceTicketDao.updateTicket(id, content);
+    }
 
-    public void delTicket(int id){ serviceTicketDao.delTicket(id);}
+    public void delTicket(int id) {
+        serviceTicketDao.delTicket(id);
+    }
 }

@@ -19,12 +19,20 @@ public class ServiceTicketController {
     @Autowired
     ServiceTicketService serviceTicketService;
 
+    @GetMapping("/getAllTicket")
+    public void getAllTicket(HttpServletResponse httpServletResponse) throws IOException {
+        List<ServiceTicket> rt = serviceTicketService.getAllTicket();
+        ResponseWrapper result = ResponseWrapper.success(rt);
+        httpServletResponse.setContentType("application/json;charset=utf-8");
+        httpServletResponse.getWriter().write(result.toString());
+    }
+
     @GetMapping("/getTicket")
     public void getTicket(HttpServletResponse httpServletResponse) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         int user_id = user.getId();
-        //返回json数据
+
         List<ServiceTicket> rt = serviceTicketService.getTicketByUserID(user_id);
         ResponseWrapper result = ResponseWrapper.success(rt);
         httpServletResponse.setContentType("application/json;charset=utf-8");

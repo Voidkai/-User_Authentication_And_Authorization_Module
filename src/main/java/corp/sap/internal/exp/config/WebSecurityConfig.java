@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/","/login").permitAll()
                     .antMatchers("/api/v3/serviceTicket/addTicket").hasAuthority("create_ticket")
                     .antMatchers("/api/v3/serviceTicket/getTicket").hasAuthority("query_ticket")
+                    .antMatchers("/api/v3/serviceTicket/getAllTicket").hasAuthority("query_all_ticket")
                     .antMatchers("/api/v3/serviceTicket/updateTicket").hasAuthority("update_ticket")
                     .antMatchers("/api/v3/serviceTicket/delTicket").hasAuthority("delete_ticket")
                     .and()
