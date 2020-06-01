@@ -28,9 +28,9 @@ public class ServiceTicketController {
 
     @GetMapping("/addTicket")
     public Object addTicket( Authentication auth,@RequestParam(value = "content") String content) throws IOException {
-        int user_id = ((User)auth.getPrincipal()).getId();
+        int userId = ((User)auth.getPrincipal()).getId();
 
-        return serviceTicketService.addTicket(user_id, content);
+        return serviceTicketService.addTicket(userId, content);
     }
 
     @GetMapping("/updateTicket")
