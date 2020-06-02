@@ -1,7 +1,5 @@
 package corp.sap.internal.exp;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,16 +11,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 @WebAppConfiguration
 class ExpApplicationTests {
-
-	@Before
-	public void init(){
-		System.out.println("ø™ º≤‚ ‘-----------------");
-	}
-
-	@After
-	public void after(){
-		System.out.println("≤‚ ‘Ω· ¯-----------------");
-	}
 
 	@Test
 	void contextLoads() {

@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -19,6 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @WebAppConfiguration
+@ActiveProfiles("dev")
 public class ServiceTicketControllerTest {
 
 	@Autowired
@@ -35,7 +37,7 @@ public class ServiceTicketControllerTest {
 
 	@Test
     public void getAllTicket() throws Exception{
-	    mockMvc.perform(get("/api/v3/serviceticket/getAllTicket").with(httpBasic("admin", "123456")))
+	    mockMvc.perform(get("/api/v3/serviceTicket/getAllTicket").with(httpBasic("admin", "123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 
