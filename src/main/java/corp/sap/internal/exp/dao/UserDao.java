@@ -1,18 +1,14 @@
 package corp.sap.internal.exp.dao;
 
-import corp.sap.internal.exp.domain.Privilege;
 import corp.sap.internal.exp.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
-import sun.security.util.Password;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 
 @Repository
@@ -23,7 +19,7 @@ public class UserDao {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User getUserByID(int id){
+    public User getUserByID(Integer id){
         String sql = "select * from users where user_id =?";
         Object[] params = {id};
         User user = jdbcTemplate.queryForObject(sql, params, (resultSet, i) -> {

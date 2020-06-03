@@ -16,19 +16,19 @@ public class ServiceTicketService {
         return serviceTicketDao.getAllTicket();
     }
 
-    public List<ServiceTicket> getTicketByUserID(int id) {
+    public List<ServiceTicket> getTicketByUserID(Integer id) {
         return serviceTicketDao.getTicketByUserID(id);
     }
 
-    public int addTicket(int user_id, String content) {
+    public int addTicket(Integer user_id, String content) {
         return serviceTicketDao.addTicket(user_id, content);
     }
 
-    public int updateTicket(int id, String content) {
+    public int updateTicket(Integer id, String content) {
         return serviceTicketDao.updateTicket(id, content);
     }
 
-    public int delTicket(int id) {
+    public int delTicket(Integer id) {
         return serviceTicketDao.delTicket(id);
     }
 }

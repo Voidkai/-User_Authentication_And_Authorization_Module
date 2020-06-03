@@ -21,27 +21,27 @@ public class ServiceTicketController {
 
     @GetMapping("/getTicket")
     public Object getTicket(Authentication auth) throws IOException {
-        int userId = ((User) auth.getPrincipal()).getId();
+        Integer userId = ((User) auth.getPrincipal()).getId();
 
         return serviceTicketService.getTicketByUserID(userId);
     }
 
     @GetMapping("/addTicket")
     public Object addTicket( Authentication auth,@RequestParam(value = "content") String content) throws IOException {
-        int userId = ((User)auth.getPrincipal()).getId();
+        Integer userId = ((User)auth.getPrincipal()).getId();
 
         return serviceTicketService.addTicket(userId, content);
     }
 
     @GetMapping("/updateTicket")
-    public Object updateTicket(@RequestParam(value = "id") int id, @RequestParam(value = "content") String content) throws IOException {
+    public Object updateTicket(@RequestParam(value = "id") Integer id, @RequestParam(value = "content") String content) throws IOException {
 
         return serviceTicketService.updateTicket(id, content);
 
     }
 
     @GetMapping("/delTicket")
-    public Object delTicket(@RequestParam(value = "id") int id) throws IOException {
+    public Object delTicket(@RequestParam(value = "id") Integer id) throws IOException {
         return serviceTicketService.delTicket(id);
     }
 }

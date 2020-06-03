@@ -1,6 +1,5 @@
 package corp.sap.internal.exp.dao;
 
-import corp.sap.internal.exp.domain.Privilege;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,7 +12,7 @@ public class PrivilegeDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<Map<String,Object>> getprivByUser(int id){
+    public List<Map<String,Object>> getprivByUser(Integer id){
         String sql = "SELECT DISTINCT p.* FROM users AS u " +
                 "LEFT JOIN role_user AS ur ON    u.user_id = ur.user_id " +
                 "LEFT JOIN roles AS r ON    r.role_id = ur.role_id " +

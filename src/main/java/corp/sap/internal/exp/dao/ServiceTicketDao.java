@@ -33,23 +33,23 @@ public class ServiceTicketDao {
         return getTicket(sql);
     }
 
-    public List<ServiceTicket> getTicketByUserID(int id) {
+    public List<ServiceTicket> getTicketByUserID(Integer id) {
         String sql = "select * from service_ticket where user_id =" + id;
         return getTicket(sql);
     }
 
-    public int addTicket(int user_id, String content) {
+    public Integer addTicket(Integer user_id, String content) {
         String sql = "insert into service_ticket values (null,CURRENT_TIMESTAMP," + user_id + ", '" + content + "')";
         return jdbcTemplate.update(sql);
     }
 
-    public int updateTicket(int id, String content) {
+    public Integer updateTicket(Integer id, String content) {
         String sql = "update service_ticket set update_time=current_timestamp,content='" + content + "' where id = " + id;
 
         return jdbcTemplate.update(sql);
     }
 
-    public int delTicket(int id) {
+    public Integer delTicket(Integer id) {
         String sql = "delete from service_ticket where id =" + id;
 
         return jdbcTemplate.update(sql);

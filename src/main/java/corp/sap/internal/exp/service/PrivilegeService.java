@@ -14,7 +14,7 @@ public class PrivilegeService {
     PrivilegeDao privilegeDao;
 
 
-    public List<Map<String,Object>> getprivByUser(int id){
+    public List<Map<String,Object>> getprivByUser(Integer id){
         return privilegeDao.getprivByUser(id);
     }
 

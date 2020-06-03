@@ -6,7 +6,7 @@ public class Privilege implements Serializable {
 
     private static final long serialVersionUID = -3405368204674664773L;
 
-    private int privilegeId;
+    private Integer privilegeId;
     private String name;
     private String privilegeCode;
 
@@ -18,11 +18,11 @@ public class Privilege implements Serializable {
         this.privilegeCode = privilegeCode;
     }
 
-    public int getPrivilegeId() {
+    public Integer getPrivilegeId() {
         return privilegeId;
     }
 
-    public void setPrivilegeId(int privilegeId) {
+    public void setPrivilegeId(Integer privilegeId) {
         this.privilegeId = privilegeId;
     }
 

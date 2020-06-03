@@ -5,14 +5,14 @@ import java.io.Serializable;
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1570489653361552972L;
-    private int roleId;
+    private Integer roleId;
     private String name;
 
-    public int getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 

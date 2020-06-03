@@ -5,12 +5,12 @@ import java.sql.Timestamp;
 
 public class ServiceTicket implements Serializable {
     private static final long serialVersionUID = -8277734413593886973L;
-    private int id;
+    private Integer id;
     private Timestamp updateTime;
-    private int userId;
+    private Integer userId;
     private String content;
 
-    public ServiceTicket(int id, Timestamp updateTime, int userId, String content) {
+    public ServiceTicket(Integer id, Timestamp updateTime, Integer userId, String content) {
         this.id = id;
         this.updateTime = updateTime;
         this.userId = userId;
@@ -33,19 +33,19 @@ public class ServiceTicket implements Serializable {
         this.content = content;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 }
