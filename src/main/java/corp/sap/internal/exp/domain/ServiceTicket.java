@@ -1,12 +1,18 @@
 package corp.sap.internal.exp.domain;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class ServiceTicket implements Serializable {
+public class ServiceTicket implements Serializable  {
     private static final long serialVersionUID = -8277734413593886973L;
     private Integer id;
+
+    @CreatedDate
     private Timestamp updateTime;
+    @CreatedBy
     private Integer userId;
     private String content;
 

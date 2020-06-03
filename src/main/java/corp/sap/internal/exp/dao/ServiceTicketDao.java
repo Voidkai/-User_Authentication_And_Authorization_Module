@@ -21,7 +21,7 @@ public class ServiceTicketDao {
         List<ServiceTicket> serviceTicketList = new ArrayList<>();
         for (int i = 0; i < rt.size(); i++) {
             Map<String, Object> serviceTicketMap = (Map<String, Object>) rt.get(i);
-            ServiceTicket serviceTicket = new ServiceTicket((int) serviceTicketMap.get("id"), (Timestamp) serviceTicketMap.get("update_time"), (int) serviceTicketMap.get("user_id"), (String) serviceTicketMap.get("content"));
+            ServiceTicket serviceTicket = new ServiceTicket((Integer) serviceTicketMap.get("id"), (Timestamp) serviceTicketMap.get("update_time"), (Integer) serviceTicketMap.get("user_id"), (String) serviceTicketMap.get("content"));
             serviceTicketList.add(serviceTicket);
         }
 
