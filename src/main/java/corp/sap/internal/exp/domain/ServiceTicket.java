@@ -16,6 +16,9 @@ public class ServiceTicket implements Serializable  {
     private Integer userId;
     private String content;
 
+    public ServiceTicket() {
+
+    }
     public ServiceTicket(Integer id, Timestamp updateTime, Integer userId, String content) {
         this.id = id;
         this.updateTime = updateTime;
