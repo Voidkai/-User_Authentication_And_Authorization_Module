@@ -1,7 +1,6 @@
 package corp.sap.internal.exp.dao;
 
 import corp.sap.internal.exp.domain.ServiceTicket;
-import corp.sap.internal.exp.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,15 +16,23 @@ public class ServiceTicketDao {
     JdbcTemplate jdbcTemplate;
 
     public List<ServiceTicket> getTicket(String sql) {
-        List rt = jdbcTemplate.queryForList(sql);
-        List<ServiceTicket> serviceTicketList = new ArrayList<>();
-        for (int i = 0; i < rt.size(); i++) {
-            Map<String, Object> serviceTicketMap = (Map<String, Object>) rt.get(i);
-            ServiceTicket serviceTicket = new ServiceTicket((Integer) serviceTicketMap.get("id"), (Timestamp) serviceTicketMap.get("update_time"), (Integer) serviceTicketMap.get("user_id"), (String) serviceTicketMap.get("content"));
-            serviceTicketList.add(serviceTicket);
-        }
+//        List rt = jdbcTemplate.queryForList(sql);
+//        List<ServiceTicket> serviceTicketList = new ArrayList<>();
+//        for (int i = 0; i < rt.size(); i++) {
+//            Map<String, Object> serviceTicketMap = (Map<String, Object>) rt.get(i);
+//            ServiceTicket serviceTicket = new ServiceTicket((Integer) serviceTicketMap.get("id"), (Timestamp) serviceTicketMap.get("update_time"), (Integer) serviceTicketMap.get("user_id"), (String) serviceTicketMap.get("content"));
+//            serviceTicketList.add(serviceTicket);
+//        }
+        List<ServiceTicket> rt = jdbcTemplate.query(sql, (resultSet, i) -> {
+            ServiceTicket serviceTicket = new ServiceTicket();
+            serviceTicket.setId(resultSet.getInt("id"));
+            serviceTicket.setUpdateTime(resultSet.getTimestamp("update_time"));
+            serviceTicket.setUserId(resultSet.getInt("user_id"));
+            serviceTicket.setContent(resultSet.getString("content"));
+            return serviceTicket;
+        });
 
-        return serviceTicketList;
+        return rt;
     }
 
     public List<ServiceTicket> getAllTicket() {
