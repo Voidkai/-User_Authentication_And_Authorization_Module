@@ -5,6 +5,8 @@ import corp.sap.internal.exp.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class UserService {
@@ -12,8 +14,8 @@ public class UserService {
     @Autowired
     UserDao userDao;
 
-    public void addUser(String username, String password) {
-        userDao.addUser(username, password);
+    public Object addUser(String username, String password) {
+        return userDao.addUser(username, password);
     }
 
     public User getUser(Integer id) {
@@ -22,6 +24,12 @@ public class UserService {
 
     public User findByUsername(String username) {
         return userDao.findUserByName(username);
+    }
+
+    public List<String> getAllUsername(){ return userDao.getAllUsername();}
+
+    public Object delUser(Integer user_id){
+        return userDao.delUser(user_id);
     }
 
 }

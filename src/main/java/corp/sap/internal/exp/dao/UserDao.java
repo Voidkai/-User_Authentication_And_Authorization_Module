@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 
 @Repository
@@ -49,12 +50,22 @@ public class UserDao {
         return user;
     }
 
-    public void addUser(String username,String password){
+    public Object addUser(String username,String password){
         String sql = "insert into users(user_id,username,password) values(null,?,?)";
-        jdbcTemplate.update(sql, preparedStatement -> {
+        return jdbcTemplate.update(sql, preparedStatement -> {
             preparedStatement.setString(1,username);
             preparedStatement.setString(2, passwordEncoder.encode(password));
         });
+    }
+
+    public List<String> getAllUsername(){
+        String sql = "select username from users";
+        return jdbcTemplate.query(sql, (resultSet, i) -> resultSet.getString("username"));
+    }
+
+    public Object delUser(Integer user_id){
+        String sql ="DELETE FROM users WHERE user_id ="+user_id;
+        return jdbcTemplate.update(sql);
     }
 
 }
