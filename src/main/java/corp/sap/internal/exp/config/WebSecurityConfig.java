@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/","/login").permitAll()
+                    .antMatchers("/","/login","/register","/api/v3/user").permitAll()
                     .antMatchers("/api/v3/serviceTicket/addTicket").hasAuthority("create_ticket")
                     .antMatchers("/api/v3/serviceTicket/getTicket").hasAuthority("query_ticket")
                     .antMatchers("/api/v3/serviceTicket/getAllTicket").hasAuthority("query_all_ticket")

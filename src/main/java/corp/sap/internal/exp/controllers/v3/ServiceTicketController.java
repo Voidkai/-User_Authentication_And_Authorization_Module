@@ -1,5 +1,6 @@
 package corp.sap.internal.exp.controllers.v3;
 
+import corp.sap.internal.exp.DTO.ResponseWrapper;
 import corp.sap.internal.exp.domain.User;
 import corp.sap.internal.exp.service.ServiceTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,21 +10,21 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/v3/serviceTicket")
+@RequestMapping(path = "/api/v3/serviceTicket", produces = "application/json")
 public class ServiceTicketController {
     @Autowired
     ServiceTicketService serviceTicketService;
 
     @GetMapping("/getAllTicket")
     public Object getAllTicket() throws IOException {
-        return serviceTicketService.getAllTicket();
+        return ResponseWrapper.success(serviceTicketService.getAllTicket());
     }
 
     @GetMapping("/getTicket")
     public Object getTicket(Authentication auth) throws IOException {
         Integer userId = ((User) auth.getPrincipal()).getId();
 
-        return serviceTicketService.getTicketByUserID(userId);
+        return ResponseWrapper.success(serviceTicketService.getTicketByUserID(userId));
     }
 
     @GetMapping("/addTicket")
