@@ -55,18 +55,19 @@ public class ServiceTicketControllerTest {
 				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
 	}
 
+	@Ignore
     @Test
     public void addTicket() throws Exception {
         mockMvc.perform(get("/api/v3/serviceTicket/addTicket?content=hello").with(httpBasic("admin", "123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
-
+	@Ignore
     @Test
     public void updateTicket() throws Exception {
         mockMvc.perform(get("/api/v3/serviceTicket/updateTicket?id=1&content=nice").with(httpBasic("admin", "123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
-
+	@Ignore
     @Test
     public void delTicket() throws Exception {
 	    mockMvc.perform(get("/api/v3/serviceTicket/delTicket?id=5").with(httpBasic("admin","123456")))

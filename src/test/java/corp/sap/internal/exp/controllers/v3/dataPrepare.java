@@ -2,6 +2,7 @@ package corp.sap.internal.exp.controllers.v3;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class dataPrepare {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    //@Ignore
+    @Ignore
     @Test
     public void UsersPrepare(){
         int len = 10000;
@@ -58,7 +59,7 @@ public class dataPrepare {
         }
     }
 
-    //@Ignore
+    @Ignore
     @Test
     public void ServiceTicketPrepare(){
         int len = 10000;
@@ -76,7 +77,7 @@ public class dataPrepare {
         }
     }
 
-    @Test
+    @Ignore
     public void UserRolePrepare(){
         int len = 10000;
         try {
