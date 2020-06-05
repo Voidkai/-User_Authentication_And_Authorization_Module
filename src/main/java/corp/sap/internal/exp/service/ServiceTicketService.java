@@ -24,8 +24,8 @@ public class ServiceTicketService {
         return serviceTicketDao.addTicket(user_id, content);
     }
 
-    public int updateTicket(Integer id, String content) {
-        return serviceTicketDao.updateTicket(id, content);
+    public int updateTicket(Integer id,Integer user_id, String content) {
+        return serviceTicketDao.updateTicket(id, user_id,content);
     }
 
     public int delTicket(Integer id) {

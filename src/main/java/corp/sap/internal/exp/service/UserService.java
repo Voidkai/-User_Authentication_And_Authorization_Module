@@ -14,10 +14,6 @@ public class UserService {
     @Autowired
     UserDao userDao;
 
-    public Object addUser(String username, String password) {
-        return userDao.addUser(username, password);
-    }
-
     public User getUser(Integer id) {
         return userDao.getUserByID(id);
     }
@@ -28,8 +24,5 @@ public class UserService {
 
     public List<String> getAllUsername(){ return userDao.getAllUsername();}
 
-    public Object delUser(Integer user_id){
-        return userDao.delUser(user_id);
-    }
 
 }

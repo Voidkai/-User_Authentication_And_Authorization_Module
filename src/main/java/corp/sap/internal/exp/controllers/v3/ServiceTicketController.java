@@ -31,13 +31,14 @@ public class ServiceTicketController {
     public Object addTicket( Authentication auth,@RequestParam(value = "content") String content) throws IOException {
         Integer userId = ((User)auth.getPrincipal()).getId();
 
-        return serviceTicketService.addTicket(userId, content);
+        return ResponseWrapper.success(serviceTicketService.addTicket(userId, content));
     }
 
     @GetMapping("/updateTicket")
-    public Object updateTicket(@RequestParam(value = "id") Integer id, @RequestParam(value = "content") String content) throws IOException {
+    public Object updateTicket(Authentication auth,@RequestParam(value = "id") Integer id, @RequestParam(value = "content") String content) throws IOException {
+        Integer userId = ((User)auth.getPrincipal()).getId();
 
-        return serviceTicketService.updateTicket(id, content);
+        return serviceTicketService.updateTicket(id, userId, content);
 
     }
 

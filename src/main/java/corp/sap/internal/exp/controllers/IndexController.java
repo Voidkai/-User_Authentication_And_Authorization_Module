@@ -24,15 +24,5 @@ public class IndexController {
 		rt.put("service", "exp");
 		return rt;
 	}
-
-	@RequestMapping("/register")
-	public Object addUser(@RequestParam(value = "username")String username, @RequestParam(value = "password")String password){
-		List<String> usernameList = userService.getAllUsername();
-		if(usernameList.contains(username)){
-			return ResponseWrapper.fail(ProcessingStatusCode.COMMON_FAIL);
-		}
-
-		return ResponseWrapper.success(userService.addUser(username,password));
-	}
 	
 }

@@ -50,8 +50,8 @@ public class ServiceTicketDao {
         return jdbcTemplate.update(sql);
     }
 
-    public Integer updateTicket(Integer id, String content) {
-        String sql = "update service_ticket set update_time=current_timestamp,content='" + content + "' where id = " + id;
+    public Integer updateTicket(Integer id, Integer user_id,String content) {
+        String sql = "update service_ticket set update_time=current_timestamp,content='" + content + "' where id = " + id +", user_id ="+user_id;
 
         return jdbcTemplate.update(sql);
     }

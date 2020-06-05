@@ -14,18 +14,5 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/api/v3/user")
 public class UserController {
-    @Autowired
-    UserService userService;
-    @RequestMapping("/delUser")
-    public Object delUser(@RequestParam(value = "userId",defaultValue = "0")int user_id, Principal principal){
-        if(user_id == 0)
-            user_id = ((User)principal).getId();
-
-        Object rt = userService.delUser(user_id);
-        if((int) rt == 0)
-            return ResponseWrapper.fail(ProcessingStatusCode.PARAM_NOT_VALID);
-
-        return ResponseWrapper.success(rt);
-    }
 
 }
