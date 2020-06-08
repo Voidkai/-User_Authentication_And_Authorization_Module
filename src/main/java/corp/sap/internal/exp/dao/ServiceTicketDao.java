@@ -51,13 +51,13 @@ public class ServiceTicketDao {
     }
 
     public Integer updateTicket(Integer id, Integer user_id,String content) {
-        String sql = "update service_ticket set update_time=current_timestamp,content='" + content + "' where id = " + id +", user_id ="+user_id;
+        String sql = "update service_ticket set update_time=current_timestamp,content='" + content + "' where id = " + id +" and user_id ="+user_id;
 
         return jdbcTemplate.update(sql);
     }
 
-    public Integer delTicket(Integer id) {
-        String sql = "delete from service_ticket where id =" + id;
+    public Integer delTicket(Integer id,Integer user_id) {
+        String sql = "delete from service_ticket where id =" + id+" and user_id ="+user_id;
 
         return jdbcTemplate.update(sql);
     }

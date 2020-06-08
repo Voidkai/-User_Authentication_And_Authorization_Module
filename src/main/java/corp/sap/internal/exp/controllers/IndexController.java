@@ -1,21 +1,13 @@
 package corp.sap.internal.exp.controllers;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import corp.sap.internal.exp.DTO.ResponseWrapper;
-import corp.sap.internal.exp.service.UserService;
-import corp.sap.internal.exp.utils.ProcessingStatusCode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
 public class IndexController {
-
-	@Autowired
-    UserService userService;
 
 
 	@GetMapping("/")

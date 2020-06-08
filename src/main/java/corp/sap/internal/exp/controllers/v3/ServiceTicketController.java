@@ -27,14 +27,14 @@ public class ServiceTicketController {
         return ResponseWrapper.success(serviceTicketService.getTicketByUserID(userId));
     }
 
-    @GetMapping("/addTicket")
-    public Object addTicket( Authentication auth,@RequestParam(value = "content") String content) throws IOException {
+    @PostMapping("/addTicket/{content}")
+    public Object addTicket( Authentication auth,@PathVariable(value = "content") String content) throws IOException {
         Integer userId = ((User)auth.getPrincipal()).getId();
 
         return ResponseWrapper.success(serviceTicketService.addTicket(userId, content));
     }
 
-    @GetMapping("/updateTicket")
+    @PostMapping("/updateTicket")
     public Object updateTicket(Authentication auth,@RequestParam(value = "id") Integer id, @RequestParam(value = "content") String content) throws IOException {
         Integer userId = ((User)auth.getPrincipal()).getId();
 
@@ -42,8 +42,9 @@ public class ServiceTicketController {
 
     }
 
-    @GetMapping("/delTicket")
-    public Object delTicket(@RequestParam(value = "id") Integer id) throws IOException {
-        return serviceTicketService.delTicket(id);
+    @DeleteMapping("/delTicket")
+    public Object delTicket(Authentication auth,@RequestParam(value = "id") Integer id) throws IOException {
+        Integer userId = ((User)auth.getPrincipal()).getId();
+        return serviceTicketService.delTicket(id,userId);
     }
 }

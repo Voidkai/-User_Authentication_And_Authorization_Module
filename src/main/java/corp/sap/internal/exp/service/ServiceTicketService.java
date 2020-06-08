@@ -28,7 +28,7 @@ public class ServiceTicketService {
         return serviceTicketDao.updateTicket(id, user_id,content);
     }
 
-    public int delTicket(Integer id) {
-        return serviceTicketDao.delTicket(id);
+    public int delTicket(Integer id,Integer user_id) {
+        return serviceTicketDao.delTicket(id,user_id);
     }
 }
