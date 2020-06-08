@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
 
 @EnableGlobalAuthentication
 @Configuration
@@ -61,7 +62,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                     .maximumSessions(1);
 
-        httpSecurity.csrf().disable();
+        CsrfTokenResponseHeaderBindingFilter csrfTokenResponseHeaderBindingFilter = new CsrfTokenResponseHeaderBindingFilter();
+
+        httpSecurity.addFilterAfter(csrfTokenResponseHeaderBindingFilter, CsrfFilter.class);
 
 
     }
