@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/v3/serviceTicket", produces = "application/json")
+@RequestMapping(path = "/api/v3/ticket")
 public class ServiceTicketController {
     @Autowired
     ServiceTicketService serviceTicketService;
@@ -23,22 +23,28 @@ public class ServiceTicketController {
         return ResponseWrapper.success(serviceTicketService.getAllTicket());
     }
 
-    @GetMapping("/getTicket")
-    public Object getTicket(Authentication auth) throws IOException {
+    @GetMapping("/getOwnTicket")
+    public Object getOwnTicket(Authentication auth) throws IOException {
         Integer userId = ((User) auth.getPrincipal()).getId();
 
         return ResponseWrapper.success(serviceTicketService.getTicketByUserID(userId));
     }
 
-    @PostMapping("/addTicket/{content}")
-    public Object addTicket( Authentication auth,@PathVariable(value = "content") String content) throws IOException {
+    @GetMapping("/{id}")
+    public Object getOwnTicket(Authentication auth, @PathVariable(value="id")Integer id ) throws IOException {
+
+        return ResponseWrapper.success(serviceTicketService.getTicketByTicketId(id));
+    }
+
+    @PostMapping("/")
+    public Object addTicket( Authentication auth,@RequestParam(value = "content") String content) throws IOException {
         Integer userId = ((User)auth.getPrincipal()).getId();
 
         return ResponseWrapper.success(serviceTicketService.addTicket(userId, content));
     }
 
-    @PostMapping("/updateTicket")
-    public Object updateTicket(Authentication auth,@RequestParam(value = "id") Integer id, @RequestParam(value = "content") String content) throws IOException {
+    @PatchMapping("/{id}")
+    public Object updateTicket(Authentication auth,@PathVariable(value = "id") Integer id, @RequestParam(value = "content") String content) throws IOException {
         Integer userId = ((User)auth.getPrincipal()).getId();
         List<ServiceTicket> rt = serviceTicketService.updateTicket(id, userId, content);
         if(rt.isEmpty()){
@@ -48,8 +54,8 @@ public class ServiceTicketController {
 
     }
 
-    @DeleteMapping("/delTicket")
-    public Object delTicket(Authentication auth,@RequestParam(value = "id") Integer id) throws IOException {
+    @DeleteMapping("/{id}")
+    public Object delTicket(Authentication auth,@PathVariable(value = "id") Integer id) throws IOException {
         Integer userId = ((User)auth.getPrincipal()).getId();
         int rt = serviceTicketService.delTicket(id,userId);
         if(rt == 0){

@@ -21,6 +21,7 @@ public class ServiceTicketService {
         return serviceTicketDao.getTicketByUserId(userId);
     }
 
+    public List<ServiceTicket> getTicketByTicketId(Integer id){ return serviceTicketDao.getTicketByTicketId(id);}
     public List<ServiceTicket> addTicket(Integer user_id, String content) {
         return serviceTicketDao.getTicketByTicketId(serviceTicketDao.addTicket(user_id, content));
 
