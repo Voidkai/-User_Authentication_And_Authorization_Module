@@ -48,6 +48,12 @@ public class ServiceTicketControllerTest {
     }
 
 	@Test
+	public void delTicket() throws Exception {
+		mockMvc.perform(delete("/api/v3/ticket/5").with(httpBasic("admin","123456")))
+				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
+	}
+
+	@Test
 	public void getTicket() throws Exception {
 		mockMvc.perform(get("/api/v3/ticket/getOwnTicket").with(httpBasic("admin", "123456")))
 				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
@@ -64,12 +70,6 @@ public class ServiceTicketControllerTest {
     public void updateTicket() throws Exception {
 		String content = "{\"content\": \"nicetry\"}";
         mockMvc.perform(patch("/api/v3/ticket/1").content(content).contentType(MediaType.APPLICATION_JSON).with(httpBasic("admin", "123456")))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
-    }
-
-    @Test
-    public void delTicket() throws Exception {
-	    mockMvc.perform(delete("/api/v3/ticket/5").with(httpBasic("admin","123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 }
