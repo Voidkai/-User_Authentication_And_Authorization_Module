@@ -69,7 +69,7 @@ public class ServiceTicketControllerTest {
 
     @Test
     public void delTicket() throws Exception {
-	    mockMvc.perform(get("/api/v3/ticket/5").with(httpBasic("admin","123456")))
+	    mockMvc.perform(delete("/api/v3/ticket/5").with(httpBasic("admin","123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 }
