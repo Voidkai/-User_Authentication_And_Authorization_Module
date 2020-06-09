@@ -25,8 +25,8 @@ public class MyApplicationEventListener implements ApplicationListener<Applicati
                     "  `password` varchar(100) NOT NULL\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
             sql[1] ="INSERT INTO `users` (`user_id`, `username`, `password`) VALUES\n" +
-                    "(1, 'admin', \'"+passwordEncoder.encode("123456")+"\'),\n" +
-                    "(2, 'wkx', \'"+passwordEncoder.encode("123456")+"\')";
+                    "(1, 'admin', '" +passwordEncoder.encode("123456")+"'),\n" +
+                    "(2, 'wkx', '"+passwordEncoder.encode("123456")+"')";
             jdbcTemplate.batchUpdate(sql);
 
         }
