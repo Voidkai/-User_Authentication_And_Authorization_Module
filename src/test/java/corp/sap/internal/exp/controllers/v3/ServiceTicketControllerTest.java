@@ -53,21 +53,20 @@ public class ServiceTicketControllerTest {
 				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
 	}
 
-	@Ignore
     @Test
     public void addTicket() throws Exception {
 		String content = "{\"content\": \"nicetry\"}";
         mockMvc.perform(post("/api/v3/ticket").content(content).contentType(MediaType.APPLICATION_JSON).with(httpBasic("admin", "123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
-	@Ignore
+
     @Test
     public void updateTicket() throws Exception {
 		String content = "{\"content\": \"nicetry\"}";
         mockMvc.perform(patch("/api/v3/ticket/1").content(content).contentType(MediaType.APPLICATION_JSON).with(httpBasic("admin", "123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
-	@Ignore
+
     @Test
     public void delTicket() throws Exception {
 	    mockMvc.perform(get("/api/v3/ticket/5").with(httpBasic("admin","123456")))
