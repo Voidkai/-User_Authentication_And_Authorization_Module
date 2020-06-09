@@ -58,11 +58,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .sessionManagement()
                     .maximumSessions(1);
-
-        CsrfTokenResponseHeaderBindingFilter csrfTokenResponseHeaderBindingFilter = new CsrfTokenResponseHeaderBindingFilter();
-
-        httpSecurity.addFilterAfter(csrfTokenResponseHeaderBindingFilter, CsrfFilter.class);
-
+        //disabled csrf
+        //CsrfTokenResponseHeaderBindingFilter csrfTokenResponseHeaderBindingFilter = new CsrfTokenResponseHeaderBindingFilter();
+        //httpSecurity.addFilterAfter(csrfTokenResponseHeaderBindingFilter, CsrfFilter.class);
+        httpSecurity.csrf().disable();
 
     }
 
