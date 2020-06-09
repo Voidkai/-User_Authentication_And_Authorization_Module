@@ -4,6 +4,8 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -11,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -53,13 +56,15 @@ public class ServiceTicketControllerTest {
 	@Ignore
     @Test
     public void addTicket() throws Exception {
-        mockMvc.perform(post("/api/v3/ticket/?content=hello").with(httpBasic("admin", "123456")))
+		String content = "{\"content\": \"nicetry\"}";
+        mockMvc.perform(post("/api/v3/ticket").content(content).contentType(MediaType.APPLICATION_JSON).with(httpBasic("admin", "123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 	@Ignore
     @Test
     public void updateTicket() throws Exception {
-        mockMvc.perform(patch("/api/v3/ticket/1?content=nice").with(httpBasic("admin", "123456")))
+		String content = "{\"content\": \"nicetry\"}";
+        mockMvc.perform(patch("/api/v3/ticket/1").content(content).contentType(MediaType.APPLICATION_JSON).with(httpBasic("admin", "123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 	@Ignore

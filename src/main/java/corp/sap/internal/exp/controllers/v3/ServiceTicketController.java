@@ -36,17 +36,17 @@ public class ServiceTicketController {
         return ResponseWrapper.success(serviceTicketService.getTicketByTicketId(id));
     }
 
-    @PostMapping("/")
-    public Object addTicket( Authentication auth,@RequestParam(value = "content") String content) throws IOException {
+    @PostMapping("")
+    public Object addTicket( Authentication auth,@RequestBody ServiceTicket serviceTicket) throws IOException {
         Integer userId = ((User)auth.getPrincipal()).getId();
 
-        return ResponseWrapper.success(serviceTicketService.addTicket(userId, content));
+        return ResponseWrapper.success(serviceTicketService.addTicket(userId, serviceTicket.getContent()));
     }
 
     @PatchMapping("/{id}")
-    public Object updateTicket(Authentication auth,@PathVariable(value = "id") Integer id, @RequestParam(value = "content") String content) throws IOException {
+    public Object updateTicket(Authentication auth,@PathVariable(value = "id") Integer id, @RequestBody ServiceTicket serviceTicket) throws IOException {
         Integer userId = ((User)auth.getPrincipal()).getId();
-        List<ServiceTicket> rt = serviceTicketService.updateTicket(id, userId, content);
+        List<ServiceTicket> rt = serviceTicketService.updateTicket(id, userId, serviceTicket.getContent());
         if(rt.isEmpty()){
             return ResponseWrapper.fail(ProcessingStatusCode.PARAM_NOT_VALID);
         }
