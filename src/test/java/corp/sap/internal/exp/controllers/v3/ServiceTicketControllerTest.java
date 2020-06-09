@@ -40,32 +40,32 @@ public class ServiceTicketControllerTest {
 
 	@Test
     public void getAllTicket() throws Exception{
-	    mockMvc.perform(get("/api/v3/serviceTicket/getAllTicket").with(httpBasic("admin", "123456")))
+	    mockMvc.perform(get("/api/v3/ticket/getAllTicket").with(httpBasic("admin", "123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 
 	@Test
 	public void getTicket() throws Exception {
-		mockMvc.perform(get("/api/v3/serviceTicket/getTicket").with(httpBasic("admin", "123456")))
+		mockMvc.perform(get("/api/v3/ticket/getOwnTicket").with(httpBasic("admin", "123456")))
 				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
 	}
 
 	@Ignore
     @Test
     public void addTicket() throws Exception {
-        mockMvc.perform(get("/api/v3/serviceTicket/addTicket?content=hello").with(httpBasic("admin", "123456")))
+        mockMvc.perform(post("/api/v3/ticket/?content=hello").with(httpBasic("admin", "123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 	@Ignore
     @Test
     public void updateTicket() throws Exception {
-        mockMvc.perform(get("/api/v3/serviceTicket/updateTicket?id=1&content=nice").with(httpBasic("admin", "123456")))
+        mockMvc.perform(patch("/api/v3/ticket/1?content=nice").with(httpBasic("admin", "123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 	@Ignore
     @Test
     public void delTicket() throws Exception {
-	    mockMvc.perform(get("/api/v3/serviceTicket/delTicket?id=5").with(httpBasic("admin","123456")))
+	    mockMvc.perform(get("/api/v3/ticket/5").with(httpBasic("admin","123456")))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 }
