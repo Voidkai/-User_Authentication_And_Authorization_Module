@@ -7,6 +7,7 @@ import corp.sap.internal.exp.config.handler.LogoutSuccessHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -49,8 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                     .antMatchers("/","/login").permitAll()
-                    .antMatchers("/api/v3/ticket/**").hasAnyAuthority("create_ticket","query_ticket","update_ticket","delete_ticket")
-                    .antMatchers("/api/v3/ticket/getAllTicket").hasAuthority("query_all_ticket")
+                    .antMatchers("/api/v3/ticket/\\d+").hasAnyAuthority("create_ticket","query_ticket","update_ticket","delete_ticket")
+                    .antMatchers(HttpMethod.GET,"/api/v3/ticket/getAllTicket").hasRole("ADMIN")
                     .and()
                 .logout()
                     .permitAll()
