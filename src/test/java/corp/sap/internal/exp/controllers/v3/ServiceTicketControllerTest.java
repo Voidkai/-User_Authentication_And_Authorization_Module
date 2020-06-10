@@ -86,7 +86,7 @@ public class ServiceTicketControllerTest {
 		mockMvc.perform(delete("/api/v3/ticket/{id}", this.testTicketId).with(httpBasic("admin","123456")))
 				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
 	}
-
+	@Ignore
 	@Test
 	public void test005getAllTicket() throws Exception{
 		mockMvc.perform(get("/api/v3/ticket/getAllTicket").with(httpBasic("admin", "123456")))
