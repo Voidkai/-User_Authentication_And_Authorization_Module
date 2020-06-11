@@ -7,9 +7,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import corp.sap.internal.exp.DTO.ResponseWrapper;
-import corp.sap.internal.exp.domain.ServiceTicket;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -54,7 +51,7 @@ public class ServiceTicketControllerTest {
 	@Test
 	public void test001addTicket() throws Exception {
 		String content = "{\"content\": \"ContentTest\"}";
-		MvcResult mvcResult = mockMvc.perform(post("/api/v3/ticket").content(content).contentType(MediaType.APPLICATION_JSON).with(httpBasic("admin", "123456")))
+		MvcResult mvcResult = mockMvc.perform(post("/api/v3/ticket/").content(content).contentType(MediaType.APPLICATION_JSON).with(httpBasic("admin", "123456")))
 				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print()).andReturn();
 
 		JSONObject jsonObject = JSON.parseObject(mvcResult.getResponse().getContentAsString());
