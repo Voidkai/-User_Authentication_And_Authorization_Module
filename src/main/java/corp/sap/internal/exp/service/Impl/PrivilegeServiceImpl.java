@@ -6,17 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class PrivilegeServiceImpl implements PrivilegeService {
     @Autowired
     PrivilegeDao privilegeDao;
-
-//    @Override
-//    public List<Map<String, Object>> getprivByUser(Integer id) {
-//        return privilegeDao.getprivByUser(id);
-//    }
 
     @Override
     public Boolean privilegeCheck(Permission permission, Integer user_id) {
