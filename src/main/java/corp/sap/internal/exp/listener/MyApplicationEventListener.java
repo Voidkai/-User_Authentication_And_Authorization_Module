@@ -3,6 +3,7 @@ package corp.sap.internal.exp.listener;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.File;
@@ -17,8 +18,9 @@ public class MyApplicationEventListener implements ApplicationListener<Applicati
         ApplicationContext applicationContext=applicationReadyEvent.getApplicationContext();
         JdbcTemplate jdbcTemplate = applicationContext.getBean(JdbcTemplate.class);
 
-        File file = new File("src\\main\\resources\\resources\\java_reference.sql");
+        ClassPathResource classPathResource = new ClassPathResource("resources/java_reference.sql");
         try {
+            File file = classPathResource.getFile();
             FileInputStream in = new FileInputStream(file);
             int size = in.available();
             byte[] buffer = new byte[size];

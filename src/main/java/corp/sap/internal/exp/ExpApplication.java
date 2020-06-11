@@ -8,9 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ExpApplication {
 
 	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(ExpApplication.class);
-		app.addListeners(new MyApplicationEventListener());
-		app.run(args);
+		SpringApplication.run(ExpApplication.class,args).addApplicationListener(new MyApplicationEventListener());
 	}
 
 }
