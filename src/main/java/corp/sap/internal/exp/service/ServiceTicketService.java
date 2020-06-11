@@ -2,8 +2,8 @@ package corp.sap.internal.exp.service;
 
 import corp.sap.internal.exp.dao.ServiceTicketDao;
 import corp.sap.internal.exp.domain.ServiceTicket;
-import corp.sap.internal.exp.service.Impl.Permission;
-import corp.sap.internal.exp.service.Impl.PrivilegeServiceImpl;
+import corp.sap.internal.exp.service.Impl.RBACPermissionChallenge;
+import corp.sap.internal.exp.service.Impl.RBACPrivilegeCheckServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class ServiceTicketService {
     ServiceTicketDao serviceTicketDao;
 
     @Autowired
-    PrivilegeServiceImpl privilegeServiceImpl;
+    RBACPrivilegeCheckServiceImpl privilegeServiceImpl;
 
     public List<ServiceTicket> getAllTicket() {
         return serviceTicketDao.getAllTicket();
@@ -27,11 +27,12 @@ public class ServiceTicketService {
     }
 
     public List<ServiceTicket> getTicketByTicketId(Integer id){ return serviceTicketDao.getTicketByTicketId(id);}
-    public List<ServiceTicket> addTicket(Integer user_id, String content) {
-        Permission getAllTicketPermission = new Permission("create_ticket");
-        Boolean permissionCheck = privilegeServiceImpl.privilegeCheck(getAllTicketPermission, user_id);
+    public List<ServiceTicket> addTicket(Integer userId, String content) {
+        RBACPermissionChallenge getAllTicketRBACPermission = new RBACPermissionChallenge("create_ticket");
+        getAllTicketRBACPermission.setUserId(userId);
+        Boolean permissionCheck = privilegeServiceImpl.check(getAllTicketRBACPermission);
         if(!permissionCheck) return null;
-        return serviceTicketDao.getTicketByTicketId(serviceTicketDao.addTicket(user_id, content));
+        return serviceTicketDao.getTicketByTicketId(serviceTicketDao.addTicket(userId, content));
 
     }
 

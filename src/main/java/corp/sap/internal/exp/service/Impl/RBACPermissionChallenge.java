@@ -1,28 +1,40 @@
 package corp.sap.internal.exp.service.Impl;
 
-public class Permission {
+import corp.sap.internal.exp.service.PermissionChallenge;
+
+public class RBACPermissionChallenge implements PermissionChallenge {
     private String entity;
     private Integer id;
     private String role;
     private String operation;
     private String privilegeCode;
+    private Integer userId;
 
-    public Permission() {
+    public RBACPermissionChallenge() {
     }
 
-    public Permission(String privilegeCode) {
+    public RBACPermissionChallenge(String privilegeCode) {
         this.privilegeCode = privilegeCode;
     }
 
-    public Permission(String entity, String operation) {
+    public RBACPermissionChallenge(String entity, String operation) {
         this.entity = entity;
         this.operation = operation;
     }
 
-    public Permission(String entity, Integer id, String privilegeCode) {
+    public RBACPermissionChallenge(String entity, Integer id, String privilegeCode) {
         this.entity = entity;
         this.id = id;
         this.privilegeCode = privilegeCode;
+    }
+
+    @Override
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getEntity() {

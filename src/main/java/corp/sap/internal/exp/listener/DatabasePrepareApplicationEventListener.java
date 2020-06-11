@@ -1,23 +1,25 @@
 package corp.sap.internal.exp.listener;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+@Component
+public class DatabasePrepareApplicationEventListener implements ApplicationListener<ApplicationReadyEvent> {
 
-public class MyApplicationEventListener implements ApplicationListener<ApplicationReadyEvent> {
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        ApplicationContext applicationContext=applicationReadyEvent.getApplicationContext();
-        JdbcTemplate jdbcTemplate = applicationContext.getBean(JdbcTemplate.class);
-
         ClassPathResource classPathResource = new ClassPathResource("resources/java_reference.sql");
         try {
             File file = classPathResource.getFile();

@@ -1,6 +1,5 @@
 package corp.sap.internal.exp;
 
-import corp.sap.internal.exp.listener.MyApplicationEventListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ExpApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ExpApplication.class,args).addApplicationListener(new MyApplicationEventListener());
+		SpringApplication.run(ExpApplication.class,args);
 	}
 
 }

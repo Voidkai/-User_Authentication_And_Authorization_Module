@@ -36,7 +36,7 @@ public class ServiceTicketController {
         return ResponseWrapper.success(serviceTicketService.getTicketByTicketId(id));
     }
 
-    @PostMapping("")
+    @PostMapping("/")
     public Object addTicket( Authentication auth,@RequestBody ServiceTicket serviceTicket) throws IOException {
         Integer userId = ((User)auth.getPrincipal()).getId();
         List<ServiceTicket> rt = serviceTicketService.addTicket(userId, serviceTicket.getContent());
