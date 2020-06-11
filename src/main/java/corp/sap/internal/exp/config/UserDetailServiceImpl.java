@@ -36,15 +36,15 @@ public class UserDetailServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("not found user:" + s + "'s information.");
         }
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        if (user != null) {
-            List privilegeLists = privilegeService.getprivByUser(user.getId());
-
-            for (Object privilegeList : privilegeLists) {
-                Map privilegeMap = (Map) privilegeList;
-                GrantedAuthority grantedAuthority = new SimpleGrantedAuthority((String) privilegeMap.get("privilege_code"));
-                grantedAuthorities.add(grantedAuthority);
-            }
-        }
+//        if (user != null) {
+//            List privilegeLists = privilegeService.getprivByUser(user.getId());
+//
+//            for (Object privilegeList : privilegeLists) {
+//                Map privilegeMap = (Map) privilegeList;
+//                GrantedAuthority grantedAuthority = new SimpleGrantedAuthority((String) privilegeMap.get("privilege_code"));
+//                grantedAuthorities.add(grantedAuthority);
+//            }
+//        }
         return new User(user.getId(),user.getUsername(), user.getPassword(), grantedAuthorities);
     }
 }

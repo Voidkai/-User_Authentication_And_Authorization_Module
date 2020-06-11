@@ -39,8 +39,9 @@ public class ServiceTicketController {
     @PostMapping("")
     public Object addTicket( Authentication auth,@RequestBody ServiceTicket serviceTicket) throws IOException {
         Integer userId = ((User)auth.getPrincipal()).getId();
-
-        return ResponseWrapper.success(serviceTicketService.addTicket(userId, serviceTicket.getContent()));
+        List<ServiceTicket> rt = serviceTicketService.addTicket(userId, serviceTicket.getContent());
+        if(rt == null) return ResponseWrapper.fail(ProcessingStatusCode.NO_PERMISSION);
+        return ResponseWrapper.success(rt);
     }
 
     @PatchMapping("/{id}")

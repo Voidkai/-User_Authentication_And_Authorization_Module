@@ -32,7 +32,8 @@ INSERT INTO `privilege_role` (`id`, `role_id`, `privilege_id`) VALUES
 (6, 2, 2),
 (7, 2, 201),
 (8, 2, 203),
-(9, 2, 204);
+(9, 2, 204),
+(10,3, 202);
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `role_id` int(11) NOT NULL,
@@ -52,7 +53,7 @@ CREATE TABLE `role_user` (
 TRUNCATE TABLE `role_user`;
 INSERT INTO `role_user` (`id`, `role_id`, `user_id`) VALUES
 (1, 1, 1),
-(2, 2, 2);
+(2, 3, 2);
 DROP TABLE IF EXISTS `service_ticket`;
 CREATE TABLE `service_ticket` (
   `id` int(11) NOT NULL,
@@ -84,7 +85,7 @@ ALTER TABLE `service_ticket`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 ALTER TABLE `privilege_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 ALTER TABLE `roles`
   MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 ALTER TABLE `role_user`
