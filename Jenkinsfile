@@ -11,7 +11,7 @@ pipeline {
       
         stage('Build') {
             steps {
-                sh 'mvn clean package -Dspring.profiles.active='
+                sh 'mvn clean package -Dspring.profiles.active=test'
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
             }
         }
