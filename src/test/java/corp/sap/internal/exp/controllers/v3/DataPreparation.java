@@ -22,7 +22,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @WebAppConfiguration
-public class DataPrepare {
+public class DataPreparation {
     @Autowired
     private WebApplicationContext ctx;
 
