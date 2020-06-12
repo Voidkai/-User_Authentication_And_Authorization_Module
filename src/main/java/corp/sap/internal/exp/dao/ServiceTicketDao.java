@@ -41,8 +41,8 @@ public class ServiceTicketDao {
         return jdbcTemplate.update(sql);
     }
 
-    public Integer delTicket(Integer id,Integer userId) {
-        String sql = "delete from service_ticket where id =" + id+" and user_id ="+ userId;
+    public Integer delTicket(Integer id) {
+        String sql = "delete from service_ticket where id =" + id;
 
         return jdbcTemplate.update(sql);
     }

@@ -50,7 +50,8 @@ CREATE TABLE `role_user` (
 TRUNCATE TABLE `role_user`;
 INSERT INTO `role_user` (`id`, `role_id`, `user_id`) VALUES
 (1, 1, 1),
-(2, 3, 2);
+(2, 2, 2),
+(3, 3, 3);
 DROP TABLE IF EXISTS `service_ticket`;
 CREATE TABLE `service_ticket` (
   `id` int(11) NOT NULL,
@@ -68,7 +69,8 @@ CREATE TABLE `users` (
 TRUNCATE TABLE `users`;
 INSERT INTO `users` (`user_id`, `username`, `password`) VALUES
 (1, 'admin', '$2a$10$08.QZS7/nNO5Z25QRM1w6euQcYyYCalxdDTwlIGvJPUuwUguYGgj2'),
-(2, 'wkx', '$2a$10$z/lkaBOXSe20Xhws.Vs88e4mYjgI1POaF9Tv.v8WsJdyMncDfVDv2');
+(2, 'processor', '$2a$10$z/lkaBOXSe20Xhws.Vs88e4mYjgI1POaF9Tv.v8WsJdyMncDfVDv2'),
+(3, 'wkx', '$2a$10$z/lkaBOXSe20Xhws.Vs88e4mYjgI1POaF9Tv.v8WsJdyMncDfVDv2');
 ALTER TABLE `privileges`
   ADD PRIMARY KEY (`privilege_id`);
 ALTER TABLE `privilege_role`
@@ -86,8 +88,8 @@ ALTER TABLE `privilege_role`
 ALTER TABLE `roles`
   MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 ALTER TABLE `role_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 ALTER TABLE `service_ticket`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;

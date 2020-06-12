@@ -26,7 +26,11 @@ public class ServiceTicketService {
         return serviceTicketDao.getTicketByUserId(userId);
     }
 
-    public List<ServiceTicket> getTicketByTicketId(Integer id) {
+    public List<ServiceTicket> getTicketByTicketId(Integer userId,Integer id) {
+        RBACPermissionChallenge getAllTicketRBACPermission = new RBACPermissionChallenge("service_ticket_read");
+        getAllTicketRBACPermission.setUserId(userId);
+        Boolean permissionCheck = privilegeServiceImpl.check(getAllTicketRBACPermission);
+        if (!permissionCheck) return null;
         return serviceTicketDao.getTicketByTicketId(id);
     }
 
@@ -44,12 +48,7 @@ public class ServiceTicketService {
         getAllTicketRBACPermission.setUserId(userId);
         Boolean permissionCheck = privilegeServiceImpl.check(getAllTicketRBACPermission);
         if (!permissionCheck) return null;
-        List<Integer> idList = serviceTicketDao.getTicketIdByUserId(userId);
-        if (!idList.contains(id)) {
-            return new ArrayList<>();
-        } else {
-            serviceTicketDao.updateTicket(id, userId, content);
-        }
+        serviceTicketDao.updateTicket(id, userId, content);
 
         return serviceTicketDao.getTicketByTicketId(id);
     }
@@ -59,10 +58,6 @@ public class ServiceTicketService {
         getAllTicketRBACPermission.setUserId(userId);
         Boolean permissionCheck = privilegeServiceImpl.check(getAllTicketRBACPermission);
         if (!permissionCheck) return null;
-        List<Integer> idList = serviceTicketDao.getTicketIdByUserId(userId);
-        if (!idList.contains(id)) {
-            return 0;
-        }
-        return serviceTicketDao.delTicket(id, userId);
+        return serviceTicketDao.delTicket(id);
     }
 }
