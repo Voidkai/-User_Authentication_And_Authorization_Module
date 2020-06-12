@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public class ServiceTicketDao {
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     public List<ServiceTicket> getAllTicket() {
         String sql = "select * from service_ticket";

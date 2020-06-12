@@ -12,7 +12,7 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     public User getUser(Integer id) {
         return userDao.getUserByID(id);
@@ -22,7 +22,9 @@ public class UserService {
         return userDao.findUserByName(username);
     }
 
-    public List<String> getAllUsername(){ return userDao.getAllUsername();}
+    public List<String> getAllUsername() {
+        return userDao.getAllUsername();
+    }
 
 
 }

@@ -17,9 +17,9 @@ import java.util.List;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    PrivilegeCheckService privilegeCheckService;
+    private PrivilegeCheckService privilegeCheckService;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

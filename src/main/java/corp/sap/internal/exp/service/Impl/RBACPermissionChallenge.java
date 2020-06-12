@@ -6,7 +6,6 @@ public class RBACPermissionChallenge implements PermissionChallenge {
     private String entity;
     private Integer id;
     private String role;
-    private String operation;
     private String privilegeCode;
     private Integer userId;
 
@@ -17,9 +16,9 @@ public class RBACPermissionChallenge implements PermissionChallenge {
         this.privilegeCode = privilegeCode;
     }
 
-    public RBACPermissionChallenge(String entity, String operation) {
+    public RBACPermissionChallenge(String entity, String privilegeCode) {
         this.entity = entity;
-        this.operation = operation;
+        this.privilegeCode = privilegeCode;
     }
 
     public RBACPermissionChallenge(String entity, Integer id, String privilegeCode) {
@@ -59,14 +58,6 @@ public class RBACPermissionChallenge implements PermissionChallenge {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getOperation() {
-        return operation;
-    }
-
-    public void setOperation(String operation) {
-        this.operation = operation;
     }
 
     public String getPrivilegeCode() {

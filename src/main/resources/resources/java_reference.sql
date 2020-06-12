@@ -3,19 +3,16 @@ USE `java_reference`;
 DROP TABLE IF EXISTS `privileges`;
 CREATE TABLE `privileges` (
   `privilege_id` int(11) NOT NULL,
-  `privilege_code` varchar(20) NOT NULL,
+  `privilege_code` varchar(50) NOT NULL,
   `description` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 TRUNCATE TABLE `privileges`;
 INSERT INTO `privileges` (`privilege_id`, `privilege_code`, `description`) VALUES
-(1, 'ROLE_ADMIN', ''),
-(2, 'ROLE_USER', ''),
-(101, 'create_user', ''),
-(102, 'delete_user', ''),
-(201, 'create_ticket', ''),
-(202, 'delete_ticket', ''),
-(203, 'update_ticket', ''),
-(204, 'query_ticket', '');
+(100, 'service_ticket_truncate', ''),
+(101, 'service_ticket_create', ''),
+(102, 'service_ticket_read', ''),
+(103, 'service_ticket_update', ''),
+(104, 'service_ticket_delete', '');
 DROP TABLE IF EXISTS `privilege_role`;
 CREATE TABLE `privilege_role` (
   `id` int(11) NOT NULL,
@@ -24,16 +21,16 @@ CREATE TABLE `privilege_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 TRUNCATE TABLE `privilege_role`;
 INSERT INTO `privilege_role` (`id`, `role_id`, `privilege_id`) VALUES
-(1, 1, 1),
-(2, 1, 201),
-(3, 1, 202),
-(4, 1, 203),
-(5, 1, 204),
-(6, 2, 2),
-(7, 2, 201),
-(8, 2, 203),
-(9, 2, 204),
-(10,3, 202);
+(1, 1, 100),
+(2, 1, 101),
+(3, 1, 102),
+(4, 1, 103),
+(5, 1, 104),
+(6, 2, 102),
+(7, 2, 103),
+(8, 3, 101),
+(9, 3, 102),
+(10,3, 103);
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `role_id` int(11) NOT NULL,
@@ -41,9 +38,9 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 TRUNCATE TABLE `roles`;
 INSERT INTO `roles` (`role_id`, `name`) VALUES
-(1, 'admin'),
-(2, 'customer'),
-(3, 'operator');
+(1, 'service_ticket_manager'),
+(2, 'service_ticket_processor'),
+(3, 'customer');
 DROP TABLE IF EXISTS `role_user`;
 CREATE TABLE `role_user` (
   `id` int(11) NOT NULL,

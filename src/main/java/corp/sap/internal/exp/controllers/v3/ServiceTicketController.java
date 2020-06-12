@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping(path = "/api/v3/ticket")
 public class ServiceTicketController {
     @Autowired
-    ServiceTicketService serviceTicketService;
+    private ServiceTicketService serviceTicketService;
 
     @GetMapping("/getAllTicket")
     public Object getAllTicket() throws IOException {
@@ -31,24 +31,24 @@ public class ServiceTicketController {
     }
 
     @GetMapping("/{id}")
-    public Object getOwnTicket(Authentication auth, @PathVariable(value="id")Integer id ) throws IOException {
+    public Object getOwnTicket(Authentication auth, @PathVariable(value = "id") Integer id) throws IOException {
 
         return ResponseWrapper.success(serviceTicketService.getTicketByTicketId(id));
     }
 
     @PostMapping("/")
-    public Object addTicket( Authentication auth,@RequestBody ServiceTicket serviceTicket) throws IOException {
-        Integer userId = ((User)auth.getPrincipal()).getId();
+    public Object addTicket(Authentication auth, @RequestBody ServiceTicket serviceTicket) throws IOException {
+        Integer userId = ((User) auth.getPrincipal()).getId();
         List<ServiceTicket> rt = serviceTicketService.addTicket(userId, serviceTicket.getContent());
-        if(rt == null) return ResponseWrapper.fail(ProcessingStatusCode.NO_PERMISSION);
+        if (rt == null) return ResponseWrapper.fail(ProcessingStatusCode.NO_PERMISSION);
         return ResponseWrapper.success(rt);
     }
 
     @PatchMapping("/{id}")
-    public Object updateTicket(Authentication auth,@PathVariable(value = "id") Integer id, @RequestBody ServiceTicket serviceTicket) throws IOException {
-        Integer userId = ((User)auth.getPrincipal()).getId();
+    public Object updateTicket(Authentication auth, @PathVariable(value = "id") Integer id, @RequestBody ServiceTicket serviceTicket) throws IOException {
+        Integer userId = ((User) auth.getPrincipal()).getId();
         List<ServiceTicket> rt = serviceTicketService.updateTicket(id, userId, serviceTicket.getContent());
-        if(rt.isEmpty()){
+        if (rt.isEmpty()) {
             return ResponseWrapper.fail(ProcessingStatusCode.PARAM_NOT_VALID);
         }
         return ResponseWrapper.success(rt);
@@ -56,10 +56,11 @@ public class ServiceTicketController {
     }
 
     @DeleteMapping("/{id}")
-    public Object delTicket(Authentication auth,@PathVariable(value = "id") Integer id) throws IOException {
-        Integer userId = ((User)auth.getPrincipal()).getId();
-        int rt = serviceTicketService.delTicket(id,userId);
-        if(rt == 0){
+    public Object delTicket(Authentication auth, @PathVariable(value = "id") Integer id) throws IOException {
+        Integer userId = ((User) auth.getPrincipal()).getId();
+        Object rt = serviceTicketService.delTicket(id, userId);
+        if (rt == null) return ResponseWrapper.fail(ProcessingStatusCode.NO_PERMISSION);
+        if ((Integer) rt == 0) {
             return ResponseWrapper.fail(ProcessingStatusCode.PARAM_NOT_VALID);
         }
 
