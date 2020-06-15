@@ -57,8 +57,6 @@ public class ServiceTicketControllerTest {
 		JSONArray jsonArray = (JSONArray) jsonObject.get("data");
 		JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);
 		this.testTicketId = (Integer)jsonObject1.get("id");
-		System.out.println(this.testTicketId);
-
 	}
 
 	// order 2
