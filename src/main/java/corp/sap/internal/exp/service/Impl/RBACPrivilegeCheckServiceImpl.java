@@ -7,7 +7,6 @@ import corp.sap.internal.exp.service.PrivilegeCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,12 +17,12 @@ public class RBACPrivilegeCheckServiceImpl implements PrivilegeCheckService {
 
     @Override
     public Boolean check(PermissionChallenge permissionChallenge) {
-        String privilegeCode= permissionChallenge.getPrivilegeCode();
-        Integer userId = permissionChallenge.getUserId();
-
-        List<String> privilegeCodeList = privilegeDao.getPrivCodeByPrivId(privilegeDao.getPrivIdByRoleId(privilegeDao.getRoleIdByUser(userId)));
-        for(String code : privilegeCodeList){
-            if(code.equals(privilegeCode)) return true;
+        if(permissionChallenge instanceof RBACPermissionChallenge){
+           RBACPermissionChallenge rbacPermissionChallenge = (RBACPermissionChallenge) permissionChallenge;
+            List<String> privilegeCodeList = privilegeDao.getPrivCodeByPrivId(privilegeDao.getPrivIdByRoleId(privilegeDao.getRoleIdByUser(rbacPermissionChallenge.getUserId())));
+            for(String code : privilegeCodeList){
+                if(code.equals(rbacPermissionChallenge.getPrivilegeCode())) return true;
+            }
         }
 
         return false;

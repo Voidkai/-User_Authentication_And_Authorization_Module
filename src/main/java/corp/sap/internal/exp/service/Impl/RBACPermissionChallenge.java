@@ -3,7 +3,6 @@ package corp.sap.internal.exp.service.Impl;
 import corp.sap.internal.exp.service.PermissionChallenge;
 
 public class RBACPermissionChallenge implements PermissionChallenge {
-    private String entity;
     private Integer id;
     private String role;
     private String privilegeCode;
@@ -16,32 +15,18 @@ public class RBACPermissionChallenge implements PermissionChallenge {
         this.privilegeCode = privilegeCode;
     }
 
-    public RBACPermissionChallenge(String entity, String privilegeCode) {
-        this.entity = entity;
-        this.privilegeCode = privilegeCode;
-    }
 
-    public RBACPermissionChallenge(String entity, Integer id, String privilegeCode) {
-        this.entity = entity;
+    public RBACPermissionChallenge(Integer id, String privilegeCode) {
         this.id = id;
         this.privilegeCode = privilegeCode;
     }
 
-    @Override
     public Integer getUserId() {
         return userId;
     }
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public String getEntity() {
-        return entity;
-    }
-
-    public void setEntity(String entity) {
-        this.entity = entity;
     }
 
     public Integer getId() {
