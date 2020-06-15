@@ -31,6 +31,16 @@ public class PrivilegeDao {
         return list;
     }
 
+    public List<Privilege> getPriByUserId(Integer userId){
+        String sql = "select p.* from role_user ru join users u  on u.user_id =  ru.user_id\n" +
+                "    join privilege_role pr on ru.role_id = pr.role_id\n" +
+                "    join privileges p on pr.privilege_id = p.privilege_id\n" +
+                "    where u.user_id="+userId;
+        List<Privilege> list = jdbcTemplate.query(sql, new PrivilegeRowMapper());
+
+        return list;
+    }
+
 }
 
 class PrivilegeRowMapper implements RowMapper<Privilege>{

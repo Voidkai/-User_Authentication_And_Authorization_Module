@@ -25,16 +25,18 @@ public class RBACPrivilegeCheckServiceImpl implements PrivilegeCheckService {
     public Boolean check(PermissionChallenge permissionChallenge) {
         if(permissionChallenge instanceof RBACPermissionChallenge){
            RBACPermissionChallenge rbacPermissionChallenge = (RBACPermissionChallenge) permissionChallenge;
-           List<Role> roleList = userDao.getRoleByUserId(rbacPermissionChallenge.getUserId());
+//           List<Role> roleList = userDao.getRoleByUserId(rbacPermissionChallenge.getUserId());
+//
+//           List<Privilege> privIdList = new ArrayList<>();
+//           for(Role role:roleList) privIdList.addAll(privilegeDao.getPrivByRoleId(role.getRoleId()));
+//
+//           List<Privilege> privList = new ArrayList<>();
+//           for(Privilege privilege:privIdList) privList.addAll(privilegeDao.getPrivByPrivId(privilege.getPrivilegeId()));
 
-           List<Privilege> privIdList = new ArrayList<>();
-           for(Role role:roleList) privIdList.addAll(privilegeDao.getPrivByRoleId(role.getRoleId()));
-
-           List<Privilege> privList = new ArrayList<>();
-           for(Privilege privilege:privIdList) privList.addAll(privilegeDao.getPrivByPrivId(privilege.getPrivilegeId()));
-
+           List<Privilege> privList = privilegeDao.getPriByUserId(rbacPermissionChallenge.getUserId());
            List<String> codeList = new ArrayList<>();
            for(Privilege priv:privList) codeList.add(priv.getPrivilegeCode());
+
            for(String code : codeList){
                 if(code.equals(rbacPermissionChallenge.getPrivilegeCode())) return true;
             }
