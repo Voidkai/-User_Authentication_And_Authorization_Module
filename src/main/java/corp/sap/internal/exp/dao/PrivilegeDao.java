@@ -1,9 +1,14 @@
 package corp.sap.internal.exp.dao;
 
+import corp.sap.internal.exp.domain.Privilege;
+import corp.sap.internal.exp.domain.ServiceTicket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,43 +18,33 @@ public class PrivilegeDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<Integer> getRoleIdByUser(Integer user_id){
-        String sql = "select * FROM role_user WHERE user_id = "+ user_id;
+    public List<Privilege> getPrivByRoleId(Integer roleId){
+        String sql = "select * FROM privilege_role WHERE role_id = "+roleId+" group by privilege_id";
+        List<Privilege> list = jdbcTemplate.query(sql,new PrivilegeRoleRowMapper());
 
-        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
-        List<Integer> roleIdList = new ArrayList<>();
-        for(Map<String, Object> map : list){
-            roleIdList.add((Integer) map.get("role_id"));
-        }
+        return list;
+    }
+    public List<Privilege> getPrivByPrivId(Integer privId){
+        String sql = "select * FROM privileges WHERE privilege_id = "+privId;
+        List<Privilege> list = jdbcTemplate.query(sql, new PrivilegeRowMapper());
 
-        return  roleIdList;
+        return list;
     }
 
-    public List<Integer> getPrivIdByRoleId(List<Integer> roleIdList){
-        String sql = "select DISTINCT privilege_id FROM privilege_role WHERE role_id = 0";
-        for(Integer i : roleIdList){
-            sql = sql + " or role_id = " + i;
-        }
-        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
-        List<Integer> privIdList = new ArrayList<>();
-        for(Map<String, Object> map : list){
-            privIdList.add((Integer) map.get("privilege_id"));
-        }
+}
 
-        return privIdList;
+class PrivilegeRowMapper implements RowMapper<Privilege>{
+    @Override
+    public Privilege mapRow(ResultSet resultSet, int i) throws SQLException {
+        return new Privilege(resultSet.getInt("privilege_id"),resultSet.getString("privilege_code"),resultSet.getString("description"));
     }
-    public List<String> getPrivCodeByPrivId(List<Integer> privIdList){
-        String sql = "select DISTINCT privilege_code FROM privileges WHERE privilege_id = 0";
-        for(Integer i : privIdList){
-            sql = sql + " or privilege_id = " + i;
-        }
-        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
-        List<String> privCodeList = new ArrayList<>();
-        for(Map<String, Object> map : list){
-            privCodeList.add((String) map.get("privilege_code"));
-        }
+}
 
-        return privCodeList;
+class PrivilegeRoleRowMapper implements RowMapper<Privilege>{
+    @Override
+    public Privilege mapRow(ResultSet resultSet, int i) throws SQLException {
+        Privilege privilege = new Privilege();
+        privilege.setPrivilegeId(resultSet.getInt("privilege_id"));
+        return privilege;
     }
-
 }

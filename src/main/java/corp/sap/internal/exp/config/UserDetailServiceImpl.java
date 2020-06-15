@@ -1,7 +1,6 @@
 package corp.sap.internal.exp.config;
 
 import corp.sap.internal.exp.domain.User;
-import corp.sap.internal.exp.service.PrivilegeCheckService;
 import corp.sap.internal.exp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,8 +17,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private PrivilegeCheckService privilegeCheckService;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
