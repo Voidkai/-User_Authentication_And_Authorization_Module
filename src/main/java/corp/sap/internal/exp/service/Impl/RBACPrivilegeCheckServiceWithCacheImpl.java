@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class RBACPrivilegeCheckServiceImpl implements PrivilegeCheckService {
+public class RBACPrivilegeCheckServiceWithCacheImpl implements PrivilegeCheckService {
     @Autowired
     private PrivilegeDao privilegeDao;
     @Autowired

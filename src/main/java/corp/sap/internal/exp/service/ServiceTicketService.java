@@ -3,11 +3,9 @@ package corp.sap.internal.exp.service;
 import corp.sap.internal.exp.dao.ServiceTicketDao;
 import corp.sap.internal.exp.domain.ServiceTicket;
 import corp.sap.internal.exp.service.Impl.RBACPermissionChallenge;
-import corp.sap.internal.exp.service.Impl.RBACPrivilegeCheckServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
