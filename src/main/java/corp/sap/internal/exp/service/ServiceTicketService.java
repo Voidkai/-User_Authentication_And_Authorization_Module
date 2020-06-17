@@ -16,7 +16,7 @@ public class ServiceTicketService {
     private ServiceTicketDao serviceTicketDao;
 
     @Autowired
-    private RBACPrivilegeCheckServiceImpl privilegeServiceImpl;
+    private PrivilegeCheckService privilegeCheckService;
 
     public List<ServiceTicket> getAllTicket() {
         return serviceTicketDao.getAllTicket();
@@ -29,7 +29,7 @@ public class ServiceTicketService {
     public List<ServiceTicket> getTicketByTicketId(Integer userId,Integer id) {
         RBACPermissionChallenge getAllTicketRBACPermission = new RBACPermissionChallenge("service_ticket_read");
         getAllTicketRBACPermission.setUserId(userId);
-        Boolean permissionCheck = privilegeServiceImpl.check(getAllTicketRBACPermission);
+        Boolean permissionCheck = privilegeCheckService.check(getAllTicketRBACPermission);
         if (!permissionCheck) return null;
         return serviceTicketDao.getTicketByTicketId(id);
     }
@@ -37,7 +37,7 @@ public class ServiceTicketService {
     public List<ServiceTicket> addTicket(Integer userId, String content) {
         RBACPermissionChallenge getAllTicketRBACPermission = new RBACPermissionChallenge("service_ticket_create");
         getAllTicketRBACPermission.setUserId(userId);
-        Boolean permissionCheck = privilegeServiceImpl.check(getAllTicketRBACPermission);
+        Boolean permissionCheck = privilegeCheckService.check(getAllTicketRBACPermission);
         if (!permissionCheck) return null;
         return serviceTicketDao.getTicketByTicketId(serviceTicketDao.addTicket(userId, content));
 
@@ -46,7 +46,7 @@ public class ServiceTicketService {
     public List<ServiceTicket> updateTicket(Integer id, Integer userId, String content) {
         RBACPermissionChallenge getAllTicketRBACPermission = new RBACPermissionChallenge("service_ticket_update");
         getAllTicketRBACPermission.setUserId(userId);
-        Boolean permissionCheck = privilegeServiceImpl.check(getAllTicketRBACPermission);
+        Boolean permissionCheck = privilegeCheckService.check(getAllTicketRBACPermission);
         if (!permissionCheck) return null;
         serviceTicketDao.updateTicket(id, userId, content);
 
@@ -56,7 +56,7 @@ public class ServiceTicketService {
     public Integer delTicket(Integer id, Integer userId) {
         RBACPermissionChallenge getAllTicketRBACPermission = new RBACPermissionChallenge("service_ticket_delete");
         getAllTicketRBACPermission.setUserId(userId);
-        Boolean permissionCheck = privilegeServiceImpl.check(getAllTicketRBACPermission);
+        Boolean permissionCheck = privilegeCheckService.check(getAllTicketRBACPermission);
         if (!permissionCheck) return null;
         return serviceTicketDao.delTicket(id);
     }
