@@ -29,7 +29,7 @@ pipeline {
       
         stage('Build') {
             steps {
-                sh 'mvn clean package -Dspring.profiles.active=test'
+                sh 'mvn clean package -Dspring.profiles.active=test,rbac-basic'
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
             }
         }
