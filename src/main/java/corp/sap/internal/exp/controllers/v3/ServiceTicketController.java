@@ -1,6 +1,6 @@
 package corp.sap.internal.exp.controllers.v3;
 
-import corp.sap.internal.exp.DTO.ResponseWrapper;
+import corp.sap.internal.exp.dto.ResponseWrapper;
 import corp.sap.internal.exp.domain.ServiceTicket;
 import corp.sap.internal.exp.domain.User;
 import corp.sap.internal.exp.service.ServiceTicketService;

@@ -11,11 +11,12 @@ import java.util.List;
 
 @Service
 public class ServiceTicketService {
+
     @Autowired
     private ServiceTicketDao serviceTicketDao;
 
+    // inject by profile
     @Autowired
-    @Qualifier("serviceNormal")
     private PrivilegeCheckService privilegeCheckService;
 
     public List<ServiceTicket> getAllTicket() {
@@ -26,7 +27,7 @@ public class ServiceTicketService {
         return serviceTicketDao.getTicketByUserId(userId);
     }
 
-    public List<ServiceTicket> getTicketByTicketId(Integer userId,Integer id) {
+    public List<ServiceTicket> getTicketByTicketId(Integer userId, Integer id) {
         RBACPermissionChallenge getAllTicketRBACPermission = new RBACPermissionChallenge("service_ticket_read");
         getAllTicketRBACPermission.setUserId(userId);
         Boolean permissionCheck = privilegeCheckService.check(getAllTicketRBACPermission);

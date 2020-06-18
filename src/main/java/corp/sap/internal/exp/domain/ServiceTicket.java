@@ -12,6 +12,7 @@ public class ServiceTicket implements Serializable  {
 
     @CreatedDate
     private Timestamp updateTime;
+
     @CreatedBy
     private Integer userId;
     private String content;

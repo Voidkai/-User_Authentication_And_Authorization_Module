@@ -8,6 +8,24 @@ pipeline {
     }
 
     stages {
+
+        stage('Test-RBAC-Basic') {
+            steps {
+                sh 'mvn test -Dspring.profiles.active=test,rbac-basic'
+            }
+        }
+
+//         stage('Test-RBAC-Basic-Cache') {
+//             steps {
+//                 sh 'mvn test -Dspring.profiles.active=test,rbac-basic-cache'
+//             }
+//         }
+
+        stage('Test-RBAC-Join') {
+            steps {
+                sh 'mvn test -Dspring.profiles.active=test,rbac-join'
+            }
+        }
       
         stage('Build') {
             steps {
