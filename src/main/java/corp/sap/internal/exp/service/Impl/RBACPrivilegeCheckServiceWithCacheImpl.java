@@ -23,9 +23,6 @@ public class RBACPrivilegeCheckServiceWithCacheImpl implements PrivilegeCheckSer
     private PrivilegeDao privilegeDao;
 
     @Autowired
-    private UserDao userDao;
-
-    @Autowired
     private RedisTemplate redisTemplate;
 
 

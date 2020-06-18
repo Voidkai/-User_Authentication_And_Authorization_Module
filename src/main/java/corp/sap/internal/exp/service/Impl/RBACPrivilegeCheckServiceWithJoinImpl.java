@@ -17,8 +17,6 @@ import java.util.List;
 public class RBACPrivilegeCheckServiceWithJoinImpl implements PrivilegeCheckService {
     @Autowired
     private PrivilegeDao privilegeDao;
-    @Autowired
-    private UserDao userDao;
 
 
     @Override
