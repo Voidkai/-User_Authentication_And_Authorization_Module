@@ -1,30 +1,30 @@
 package corp.sap.internal.exp.controllers.v3;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
+import corp.sap.internal.exp.domain.ServiceTicket;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.UUID;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -32,63 +32,62 @@ import org.springframework.web.context.WebApplicationContext;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ServiceTicketControllerTest {
 
-	@Autowired
-	private WebApplicationContext ctx;
+    @Autowired
+    private WebApplicationContext ctx;
 
-	private MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-	private static Integer testTicketId;
+    @Autowired
+    private ObjectMapper mapper;
 
-	@Before
-	public void setupMockMvc() {
+    @Before
+    public void setupMockMvc() {
 
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).apply(springSecurity()) // apply spring security
-				.build();
-	}
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).apply(springSecurity()) // apply spring security
+                .build();
+    }
 
-	// order 1
-	@Test
-	public void test001addTicket() throws Exception {
-		String content = "{\"content\": \"ContentTest\"}";
-		MvcResult mvcResult = mockMvc.perform(post("/api/v3/ticket/").content(content).contentType(MediaType.APPLICATION_JSON).with(httpBasic("admin", "123456")))
-				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print()).andReturn();
+    // order 1
+    @Test
+    public void testCRUDServiceTicket() throws Exception {
 
-		JSONObject jsonObject = JSON.parseObject(mvcResult.getResponse().getContentAsString());
-		JSONArray jsonArray = (JSONArray) jsonObject.get("data");
-		JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);
-		this.testTicketId = (Integer)jsonObject1.get("id");
-	}
+        String contentTest = UUID.randomUUID().toString();
+        String contentUpdated = UUID.randomUUID().toString();
 
-	// order 2
-	@Test
-	public void test002getTicket()	throws Exception{
-		mockMvc.perform(get("/api/v3/ticket/{id}", testTicketId).with(httpBasic("admin", "123456")))
-				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
-	}
+        // CREATE
+        MvcResult mvcResult = mockMvc
+                .perform(post("/api/v3/ticket/")
+                        .content(mapper.writeValueAsString(new ServiceTicket(contentTest)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .with(httpBasic("admin", "123456")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("data[0].content").value(contentTest))
+                .andReturn();
 
-	// order 3
-	@Test
-	public void test003updateTicket() throws Exception {
-		String content = "{\"content\": \"nicetry\"}";
-		mockMvc.perform(patch("/api/v3/ticket/{id}", this.testTicketId).content(content).contentType(MediaType.APPLICATION_JSON).with(httpBasic("admin", "123456")))
-				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
-	}
+        Integer ticketId = JsonPath.parse(mvcResult.getResponse().getContentAsString()).read("data[0].id", Integer.class);
 
-	// order 4
-	@Test
-	public void test004delTicket() throws Exception {
-		mockMvc.perform(delete("/api/v3/ticket/{id}", this.testTicketId).with(httpBasic("admin","123456")))
-				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
-	}
-	@Ignore
-	@Test
-	public void test005getAllTicket() throws Exception{
-		mockMvc.perform(get("/api/v3/ticket/getAllTicket").with(httpBasic("admin", "123456")))
-				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
-	}
-	@Test
-	public void test006getOwnTicket() throws Exception {
-		mockMvc.perform(get("/api/v3/ticket/getOwnTicket").with(httpBasic("admin", "123456")))
-				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
-	}
+        // READ
+        mockMvc.perform(get("/api/v3/ticket/{id}", ticketId).with(httpBasic("admin", "123456")))
+                .andExpect(status().isOk()).andExpect(jsonPath("data[0].content").value(contentTest));
+
+        // UPDATE
+        mockMvc.perform(patch("/api/v3/ticket/{id}", ticketId).content(mapper.writeValueAsString(new ServiceTicket(contentUpdated))).contentType(MediaType.APPLICATION_JSON).with(httpBasic("admin", "123456")))
+                .andExpect(jsonPath("data[0].content").value(contentUpdated));
+
+        // READ again
+        mockMvc.perform(get("/api/v3/ticket/{id}", ticketId).with(httpBasic("admin", "123456")))
+                .andExpect(status().isOk()).andExpect(jsonPath("data[0].content").value(contentUpdated));
+
+
+        // DELETE
+        mockMvc.perform(delete("/api/v3/ticket/{id}", ticketId).with(httpBasic("admin", "123456")))
+                .andExpect(status().isOk());
+
+        // READ again
+        // But in fact server should return 404
+        mockMvc.perform(get("/api/v3/ticket/{id}", ticketId).with(httpBasic("admin", "123456")))
+                .andExpect(status().isOk()).andExpect(jsonPath("data").isEmpty());
+
+    }
+
 }

@@ -32,38 +32,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return new UserDetailServiceImpl();
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //configure the way of auth
         auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
+
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception{
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
         //HTTP configuration, includes login and logout, exception and session management and soon
         httpSecurity
                 .httpBasic()
                 .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .and()
                 .authorizeRequests()
-                    .antMatchers("/","/login").permitAll()
-                    .antMatchers("/api/v3/ticket/**").authenticated()
-                    .and()
+                .antMatchers("/", "/login").permitAll()
+                .antMatchers("/api/v3/ticket/**").authenticated()
+                .and()
                 .logout()
-                    .permitAll()
-                    .logoutSuccessHandler(logoutSuccessHandler)
-                    .and()
+                .permitAll()
+                .logoutSuccessHandler(logoutSuccessHandler)
+                .and()
                 .sessionManagement()
-                    .maximumSessions(1);
+                .maximumSessions(1);
 
         httpSecurity.csrf().disable();
 
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

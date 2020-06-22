@@ -1,4 +1,4 @@
-package corp.sap.internal.exp.utils;
+package corp.sap.internal.exp.dto;
 
 public enum ProcessingStatusCode {
     /* 成功 */

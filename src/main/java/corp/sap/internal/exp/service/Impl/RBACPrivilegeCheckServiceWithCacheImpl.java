@@ -1,10 +1,10 @@
 package corp.sap.internal.exp.service.Impl;
 
 import corp.sap.internal.exp.dao.PrivilegeDao;
-import corp.sap.internal.exp.dao.UserDao;
 import corp.sap.internal.exp.domain.Privilege;
 import corp.sap.internal.exp.service.PermissionChallenge;
 import corp.sap.internal.exp.service.PrivilegeCheckService;
+import corp.sap.internal.exp.service.exceptions.NotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,7 +27,7 @@ public class RBACPrivilegeCheckServiceWithCacheImpl implements PrivilegeCheckSer
 
 
     @Override
-    public Boolean check(PermissionChallenge permissionChallenge) {
+    public Boolean check(PermissionChallenge permissionChallenge) throws NotSupportedException {
         if (permissionChallenge instanceof RBACPermissionChallenge) {
             RBACPermissionChallenge rbacPermissionChallenge = (RBACPermissionChallenge) permissionChallenge;
             Integer userId = rbacPermissionChallenge.getUserId();
@@ -52,6 +52,8 @@ public class RBACPrivilegeCheckServiceWithCacheImpl implements PrivilegeCheckSer
                     }
                 }
             }
+        } else {
+            throw new NotSupportedException();
         }
 
         return false;

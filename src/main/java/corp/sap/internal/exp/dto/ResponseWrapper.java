@@ -1,7 +1,6 @@
 package corp.sap.internal.exp.dto;
 
 import com.alibaba.fastjson.JSON;
-import corp.sap.internal.exp.utils.ProcessingStatusCode;
 
 import java.io.Serializable;
 
@@ -92,4 +91,12 @@ public class ResponseWrapper<T> implements Serializable {
     public static ResponseWrapper fail(ProcessingStatusCode resultEnum) {
         return new ResponseWrapper(false, resultEnum);
     }
+
+    public static ResponseWrapper fail(Throwable throwable) {
+        ResponseWrapper rt = new ResponseWrapper(false, ProcessingStatusCode.COMMON_FAIL);
+        rt.setErrorMsg(throwable.getMessage());
+        rt.setErrorCode(500);
+        return rt;
+    }
+
 }

@@ -6,6 +6,7 @@ import corp.sap.internal.exp.domain.Privilege;
 import corp.sap.internal.exp.domain.Role;
 import corp.sap.internal.exp.service.PermissionChallenge;
 import corp.sap.internal.exp.service.PrivilegeCheckService;
+import corp.sap.internal.exp.service.exceptions.NotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class RBACPrivilegeCheckServiceImpl implements PrivilegeCheckService {
     private UserDao userDao;
 
     @Override
-    public Boolean check(PermissionChallenge permissionChallenge) {
+    public Boolean check(PermissionChallenge permissionChallenge) throws NotSupportedException {
         if (permissionChallenge instanceof RBACPermissionChallenge) {
             RBACPermissionChallenge rbacPermissionChallenge = (RBACPermissionChallenge) permissionChallenge;
             Integer userId = rbacPermissionChallenge.getUserId();
@@ -46,6 +47,8 @@ public class RBACPrivilegeCheckServiceImpl implements PrivilegeCheckService {
                     return true;
                 }
             }
+        } else {
+            throw new NotSupportedException();
         }
 
         return false;

@@ -6,7 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class ServiceTicket implements Serializable  {
+public class ServiceTicket implements Serializable {
     private static final long serialVersionUID = -8277734413593886973L;
     private Integer id;
 
@@ -18,8 +18,12 @@ public class ServiceTicket implements Serializable  {
     private String content;
 
     public ServiceTicket() {
-
     }
+
+    public ServiceTicket(String content) {
+        this.content = content;
+    }
+
     public ServiceTicket(Integer id, Timestamp updateTime, Integer userId, String content) {
         this.id = id;
         this.updateTime = updateTime;
