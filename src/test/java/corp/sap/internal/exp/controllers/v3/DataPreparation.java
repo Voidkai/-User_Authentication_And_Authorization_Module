@@ -17,6 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -44,18 +47,15 @@ public class DataPreparation {
     @Test
     public void UsersPrepare(){
         int len = 10000;
-        try {
-            jdbcTemplate.update("delete from users");
-            String[] sql = new String[len];
-            sql[0] = "insert into users(user_id,username,password) values("+1+",\"admin\",\""+ passwordEncoder.encode("123456")+"\")";
-            sql[1] = "insert into users(user_id,username,password) values("+2+",\"wkx\",\""+ passwordEncoder.encode("123456")+"\")";
-            for(int i=2;i<len;i++){
-                sql[i] = "insert into users(user_id,username,password) values("+(i+1)+",\""+RandomStringUtils.randomAlphanumeric(10)+"\",\""+passwordEncoder.encode("123456")+"\")";
-            }
-            jdbcTemplate.batchUpdate(sql);
-        } catch (DataAccessException e) {
-            e.printStackTrace();
+        jdbcTemplate.update("delete from users");
+        List<String> sql = new ArrayList<>();
+        sql.add("insert into users(user_id,username,password) values("+1+",\"admin\",\""+ passwordEncoder.encode("123456")+"\")");
+        sql.add("insert into users(user_id,username,password) values("+2+",\"wkx\",\""+ passwordEncoder.encode("123456")+"\")");
+        for(int i=3;i<len;i++){
+            sql.add("insert into users(user_id,username,password) values("+i+",\"user"+i+"\",\""+"$2a$10$pPx6BJUhYpUBU8dmkg0UeO4RCt0FdDWDoyGgYAKtm713S2CBfHME2"+"\")");
         }
+        jdbcTemplate.batchUpdate(sql.toArray(new String[0]));
+
     }
 
     @Ignore
@@ -64,32 +64,28 @@ public class DataPreparation {
         int len = 10000;
         try {
             jdbcTemplate.update("delete from service_ticket");
-            String[] sql = new String[len];
-            sql[0] = "insert into service_ticket values ("+1+",CURRENT_TIMESTAMP," + 1 + ", \"" + "content"+1 + "\")";
-            sql[1] = "insert into service_ticket values ("+2+",CURRENT_TIMESTAMP," + 2 + ", \"" + "content"+2 + "\")";
-            for(int i=2;i<len;i++){
-                sql[i] ="insert into service_ticket values ("+(i+1)+",CURRENT_TIMESTAMP," + (i+1)+ ", \"" + "content"+(i+1) + "\")";
+            List<String> sql = new ArrayList<>();
+            for(int i=0;i<len;i++){
+                sql.add("insert into service_ticket values ("+(i+1)+",CURRENT_TIMESTAMP," + (i+1)+ ", \"" + "content"+(i+1) + "\")");
             }
-            jdbcTemplate.batchUpdate(sql);
+            jdbcTemplate.batchUpdate(sql.toArray(new String[0]));
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
     }
 
     @Ignore
+    @Test
     public void UserRolePrepare(){
         int len = 10000;
-        try {
-            jdbcTemplate.update("delete from role_user");
-            String[] sql = new String[len];
-            sql[0] = "insert into role_user values ("+1+"," + 1 + ", " +1 + ")";
-            sql[1] = "insert into role_user values ("+2+"," + 2 + ","+2 +")";
-            for(int i=2;i<len;i++){
-                sql[i] ="insert into role_user values ("+(i+1)+"," + 2 + ","+(i+1) +")";
+        jdbcTemplate.update("delete from role_user");
+        List<String> sql = new ArrayList<>();
+        for(int j=0;j<len;j++){
+            for(int i=0;i<3;i++){
+                int t = j*3+i+1;
+                sql.add("insert into role_user values ("+t+"," + t + ", " +(i+1) + ")");
             }
-            jdbcTemplate.batchUpdate(sql);
-        } catch (DataAccessException e) {
-            e.printStackTrace();
         }
+        jdbcTemplate.batchUpdate(sql.toArray(new String[0]));
     }
 }
