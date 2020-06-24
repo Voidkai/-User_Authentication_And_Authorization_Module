@@ -57,22 +57,15 @@ public class PermissionCheckTest {
     @Autowired
     private ObjectMapper mapper;
 
-    @Value("${data.scale}")
+    @Value("${test.data.scale}")
     int len;
 
     @Before
     public void setDataPreparation() {
-        dataBaseOperationService.setDataBase("resources/java_reference_test.sql");
         dataBaseOperationService.truncateTable();
         dataPreparationService.DataPrepare(len);
-
         this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).apply(springSecurity()) // apply spring security
                 .build();
-    }
-
-    @After
-    public void initialData(){
-        dataBaseOperationService.truncateTable();
     }
 
     @Test
