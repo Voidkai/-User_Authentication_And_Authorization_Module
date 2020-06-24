@@ -48,10 +48,6 @@ CREATE TABLE `role_user` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 TRUNCATE TABLE `role_user`;
-INSERT INTO `role_user` (`id`, `role_id`, `user_id`) VALUES
-(1, 1, 1),
-(2, 2, 2),
-(3, 3, 3);
 DROP TABLE IF EXISTS `service_ticket`;
 CREATE TABLE `service_ticket` (
   `id` int(11) NOT NULL,
@@ -67,10 +63,6 @@ CREATE TABLE `users` (
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 TRUNCATE TABLE `users`;
-INSERT INTO `users` (`user_id`, `username`, `password`) VALUES
-(1, 'admin', '$2a$10$08.QZS7/nNO5Z25QRM1w6euQcYyYCalxdDTwlIGvJPUuwUguYGgj2'),
-(2, 'processor', '$2a$10$z/lkaBOXSe20Xhws.Vs88e4mYjgI1POaF9Tv.v8WsJdyMncDfVDv2'),
-(3, 'wkx', '$2a$10$z/lkaBOXSe20Xhws.Vs88e4mYjgI1POaF9Tv.v8WsJdyMncDfVDv2');
 ALTER TABLE `privileges`
   ADD PRIMARY KEY (`privilege_id`);
 ALTER TABLE `privilege_role`
@@ -85,11 +77,9 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 ALTER TABLE `privilege_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 ALTER TABLE `role_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
 ALTER TABLE `service_ticket`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
