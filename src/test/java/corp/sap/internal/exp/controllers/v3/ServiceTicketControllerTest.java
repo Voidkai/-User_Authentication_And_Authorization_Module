@@ -42,17 +42,21 @@ public class ServiceTicketControllerTest {
 
     @Autowired
     private ObjectMapper mapper;
+
     @Autowired
     DataBaseOperationService dataBaseOperationService;
+
     @Autowired
     DataPreparationService dataPreparationService;
+
     @Value("${test.data.scale}")
-    int len;
+    Integer len;
 
     @Before
     public void setupMockMvc() {
         dataBaseOperationService.truncateTable();
-        dataPreparationService.DataPrepare(len);
+        dataPreparationService.prepareUser(len);
+        dataPreparationService.prepareServiceTicket(len);
         this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).apply(springSecurity()) // apply spring security
                 .build();
     }

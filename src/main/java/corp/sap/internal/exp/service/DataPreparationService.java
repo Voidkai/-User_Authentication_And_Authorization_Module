@@ -23,34 +23,48 @@ public class DataPreparationService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public void DataPrepare(int len){
+    /**
+     * @param len
+     */
+    public void prepareUser(int len) {
         //prepare user table
-        List<String> sql = new ArrayList<>();
+        List<String> sqls = new ArrayList<>();
         String password = passwordEncoder.encode("123456");
-        sql.add("insert into users(user_id,username,password) values("+1+",\"admin\",\""+ password+"\")");
-        for(int i=2;i<len;i++){
-            sql.add("insert into users(user_id,username,password) values(null,\"user"+i+"\",\""+password+"\")");
+        sqls.add("insert into users(user_id,username,password) values(" + 1 + ",\"admin\",\"" + password + "\")");
+        for (int i = 2; i < len; i++) {
+            sqls.add("insert into users(user_id,username,password) values(null,\"user" + i + "\",\"" + password + "\")");
         }
-        jdbcTemplate.batchUpdate(sql.toArray(new String[0]));
+        jdbcTemplate.batchUpdate(sqls.toArray(new String[0]));
 
         //prepare role_user table
-        sql = new ArrayList<>();
-        for(int i=1;i<len;i++){
-            sql.add("insert into role_user values (null," + ((i-1)%3+1) + ", " +i + ")");
+        sqls = new ArrayList<>();
+        for (int i = 1; i < len; i++) {
+            sqls.add("insert into role_user values (null," + ((i - 1) % 3 + 1) + ", " + i + ")");
         }
-        jdbcTemplate.batchUpdate(sql.toArray(new String[0]));
 
-        //prepare service_ticket
-        sql = new ArrayList<>();
-        for(int i=1;i<len;i++){
-            sql.add("insert into service_ticket values ("+i+",CURRENT_TIMESTAMP," + i+ ", \"" + "content"+i + "\")");
-        }
-        jdbcTemplate.batchUpdate(sql.toArray(new String[0]));
+        jdbcTemplate.batchUpdate(sqls.toArray(new String[0]));
 
     }
 
-    public void TableTruncate(String tableName){
-        jdbcTemplate.update("truncate table "+ tableName);
+    /**
+     * prepare service ticket with given number
+     *
+     * @param len
+     */
+    public void prepareServiceTicket(Integer len) {
+
+        // prepare service_ticket
+        List<String> sqls = new ArrayList<>();
+        for (int i = 1; i < len; i++) {
+            sqls.add("insert into service_ticket values (" + i + ",CURRENT_TIMESTAMP," + i + ", \"" + "content" + i + "\")");
+        }
+        jdbcTemplate.batchUpdate(sqls.toArray(new String[0]));
+
+    }
+
+
+    public void TableTruncate(String tableName) {
+        jdbcTemplate.update("truncate table " + tableName);
     }
 
 }
