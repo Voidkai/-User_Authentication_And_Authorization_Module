@@ -3,30 +3,41 @@ package corp.sap.internal.exp.service.Impl;
 import corp.sap.internal.exp.service.DataAccessChallenge;
 
 public class RBACDataAccessChallenge implements DataAccessChallenge {
-    private Integer userId;
-    private Integer dataId;
+    private String dataName;
+    private Integer uid;
+    private Integer eid;
 
     public RBACDataAccessChallenge() {
     }
 
-    public RBACDataAccessChallenge(Integer userId, Integer dataId) {
-        this.userId = userId;
-        this.dataId = dataId;
+    public RBACDataAccessChallenge(String dataName, Integer uid, Integer eid) {
+        this.dataName = dataName;
+        this.uid = uid;
+        this.eid = eid;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getDataName() {
+        return dataName;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setDataName(String dataName) {
+        this.dataName = dataName;
     }
 
-    public Integer getDataId() {
-        return dataId;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setDataId(Integer dataId) {
-        this.dataId = dataId;
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    public Integer getEid() {
+        return eid;
+    }
+
+    public void setEid(Integer eid) {
+        this.eid = eid;
     }
 }
+

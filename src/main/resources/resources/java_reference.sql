@@ -51,7 +51,8 @@ TRUNCATE TABLE `role_user`;
 INSERT INTO `role_user` (`id`, `role_id`, `user_id`) VALUES
 (1, 1, 1),
 (2, 2, 2),
-(3, 3, 3);
+(3, 3, 3),
+(4, 2, 4);
 DROP TABLE IF EXISTS `service_ticket`;
 CREATE TABLE `service_ticket` (
   `id` int(11) NOT NULL,
@@ -71,6 +72,23 @@ INSERT INTO `users` (`user_id`, `username`, `password`) VALUES
 (1, 'admin', '$2a$10$08.QZS7/nNO5Z25QRM1w6euQcYyYCalxdDTwlIGvJPUuwUguYGgj2'),
 (2, 'processor', '$2a$10$z/lkaBOXSe20Xhws.Vs88e4mYjgI1POaF9Tv.v8WsJdyMncDfVDv2'),
 (3, 'wkx', '$2a$10$z/lkaBOXSe20Xhws.Vs88e4mYjgI1POaF9Tv.v8WsJdyMncDfVDv2');
+DROP TABLE IF EXISTS `data_access`;
+CREATE TABLE IF NOT EXISTS `data_access` (
+  `id` int(11) NOT NULL,
+  `data_code` int(11) DEFAULT NULL,
+  `uid` int(11) DEFAULT NULL,
+  `eid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+TRUNCATE TABLE `data_access`;
+DROP TABLE IF EXISTS `data`;
+CREATE TABLE IF NOT EXISTS `data` (
+  `id` int(11) NOT NULL,
+  `name` varchar(256) DEFAULT NULL,
+  `code` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+TRUNCATE TABLE `data`;
+INSERT INTO `data` (`id`, `name`, `code`) VALUES
+(1, 'service_ticket', 10001);
 ALTER TABLE `privileges`
   ADD PRIMARY KEY (`privilege_id`);
 ALTER TABLE `privilege_role`
@@ -83,13 +101,21 @@ ALTER TABLE `service_ticket`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
+ALTER TABLE `data_access`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `data`
+  ADD PRIMARY KEY (`id`);
 ALTER TABLE `privilege_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 ALTER TABLE `roles`
   MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 ALTER TABLE `role_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 ALTER TABLE `service_ticket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `data_access`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+ALTER TABLE `data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
