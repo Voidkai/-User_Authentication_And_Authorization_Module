@@ -19,9 +19,9 @@ public class ServiceTicketDao {
         String sql = "select * from service_ticket";
         return jdbcTemplate.query(sql, new TicketRowMapper());
     }
-    public List<ServiceTicket> getTicketByTicketId(Integer Id) {
+    public ServiceTicket getTicketByTicketId(Integer Id) {
         String sql = "select * from service_ticket where id=" + Id;
-        return jdbcTemplate.query(sql, new TicketRowMapper());
+        return jdbcTemplate.queryForObject(sql, new TicketRowMapper());
     }
 
     public List<ServiceTicket> getTicketByUserId(Integer userId) {

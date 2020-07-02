@@ -2,6 +2,7 @@ package corp.sap.internal.exp.service.Impl;
 
 import corp.sap.internal.exp.dao.DataAccessDao;
 import corp.sap.internal.exp.domain.DataAccess;
+import corp.sap.internal.exp.dto.ProcessingStatusCode;
 import corp.sap.internal.exp.service.DataAccessChallenge;
 import corp.sap.internal.exp.service.DataAccessCheckService;
 import corp.sap.internal.exp.service.exceptions.NotSupportedException;
@@ -29,7 +30,7 @@ public class RBACDataAccessCheckServiceImpl implements DataAccessCheckService {
             if(eidList.contains(rbacDataAccessChallenge.getEid())) return true;
             else return false;
         }else {
-            throw new NotSupportedException();
+            throw new NotSupportedException("");
         }
     }
 }

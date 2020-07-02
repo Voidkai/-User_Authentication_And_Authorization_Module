@@ -4,6 +4,7 @@ import corp.sap.internal.exp.dao.PrivilegeDao;
 import corp.sap.internal.exp.dao.UserDao;
 import corp.sap.internal.exp.domain.Privilege;
 import corp.sap.internal.exp.domain.Role;
+import corp.sap.internal.exp.dto.ProcessingStatusCode;
 import corp.sap.internal.exp.service.PermissionChallenge;
 import corp.sap.internal.exp.service.PrivilegeCheckService;
 import corp.sap.internal.exp.service.exceptions.NotSupportedException;
@@ -48,7 +49,7 @@ public class RBACPrivilegeCheckServiceImpl implements PrivilegeCheckService {
                 }
             }
         } else {
-            throw new NotSupportedException();
+            throw new NotSupportedException("");
         }
 
         return false;

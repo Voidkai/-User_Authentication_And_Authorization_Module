@@ -1,5 +1,8 @@
 package corp.sap.internal.exp.dto;
 
+import org.springframework.stereotype.Repository;
+
+
 public enum ProcessingStatusCode {
     /* 成功 */
     SUCCESS(200, "Success"),
@@ -25,7 +28,9 @@ public enum ProcessingStatusCode {
     USER_ACCOUNT_USE_BY_OTHERS(2009, "USER_ACCOUNT_USE_BY_OTHERS"),
 
     /* 业务错误 */
-    NO_PERMISSION(3001, "NO_PERMISSION");
+    NO_PERMISSION(3001, "NO_PERMISSION"),
+    DATA_ACCESS_ERROR(3002,"DATA_ACCESS_ERROR"),
+    PERMISSION_CHALLENGE_ERROR(3003,"PERMISSION_CHALLENGE_ERROR");
     private Integer code;
     private String message;
 
@@ -54,6 +59,15 @@ public enum ProcessingStatusCode {
         for (ProcessingStatusCode ele : values()) {
             if (ele.getCode().equals(code)) {
                 return ele.getMessage();
+            }
+        }
+        return null;
+    }
+
+    public static ProcessingStatusCode getEnumByCode(Integer code) {
+        for (ProcessingStatusCode ele : values()) {
+            if (ele.getCode().equals(code)) {
+                return ele;
             }
         }
         return null;

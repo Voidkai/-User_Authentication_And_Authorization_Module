@@ -2,6 +2,7 @@ package corp.sap.internal.exp.service.Impl;
 
 import corp.sap.internal.exp.dao.PrivilegeDao;
 import corp.sap.internal.exp.domain.Privilege;
+import corp.sap.internal.exp.dto.ProcessingStatusCode;
 import corp.sap.internal.exp.service.PermissionChallenge;
 import corp.sap.internal.exp.service.PrivilegeCheckService;
 import corp.sap.internal.exp.service.exceptions.NotSupportedException;
@@ -53,7 +54,7 @@ public class RBACPrivilegeCheckServiceWithCacheImpl implements PrivilegeCheckSer
                 }
             }
         } else {
-            throw new NotSupportedException();
+            throw new NotSupportedException("");
         }
 
         return false;
