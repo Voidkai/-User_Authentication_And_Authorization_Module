@@ -5,6 +5,7 @@ import com.jayway.jsonpath.JsonPath;
 import corp.sap.internal.exp.domain.ServiceTicket;
 import corp.sap.internal.exp.service.DataBaseOperationService;
 import corp.sap.internal.exp.service.DataPreparationService;
+import corp.sap.internal.exp.service.TicketWithDataAccessCheckService;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -21,27 +22,15 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.UUID;
-
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DataAccessCheckTest {
-    @Autowired
-    private WebApplicationContext ctx;
-
-    private MockMvc mockMvc;
 
     @Autowired
-    private ObjectMapper mapper;
+    TicketWithDataAccessCheckService ticketWithDataAccessCheckService;
 
     @Autowired
     DataBaseOperationService dataBaseOperationService;
@@ -56,13 +45,18 @@ public class DataAccessCheckTest {
     public void setupMockMvc() {
         dataBaseOperationService.setupDataBase("resources/java_reference_test_data_access.sql");
         dataPreparationService.prepareServiceTicket(len);
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).apply(springSecurity()) // apply spring security
-                .build();
+        dataPreparationService.prepareDataAccess(len);
     }
 
     // order 1
     @Test
     public void testDataAccessCheckService() throws Exception {
 
+        for (int i = 1; i < len; i++) {
+            ServiceTicket serviceTicket = ticketWithDataAccessCheckService.addTicket(i, "content");
+            ticketWithDataAccessCheckService.getTicketByTicketId(serviceTicket.getUserId(),serviceTicket.getId());
+            ticketWithDataAccessCheckService.updateTicket(serviceTicket.getId(),serviceTicket.getUserId(), "New content");
+            ticketWithDataAccessCheckService.delTicket(serviceTicket.getId(),serviceTicket.getUserId());
+        }
     }
 }

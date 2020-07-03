@@ -6,12 +6,10 @@ import corp.sap.internal.exp.exceptions.BaseTechnicalException;
 import corp.sap.internal.exp.service.exceptions.NoDataAccessException;
 import corp.sap.internal.exp.service.exceptions.NoPermissionException;
 import corp.sap.internal.exp.service.exceptions.NotSupportedException;
-import corp.sap.internal.exp.service.exceptions.ParamNotValidException;
-import jdk.nashorn.internal.runtime.Context;
-import org.aspectj.weaver.ast.Not;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -39,10 +37,15 @@ public class ResponseFormatter implements ResponseBodyAdvice<Object> {
         if(ex instanceof NoDataAccessException){
             logger.warn("There is a NoDataAccessException, please make sure that the user can access the data");
         }
-        if(ex instanceof ParamNotValidException){
-            logger.warn("There is a ParamNotValidException, please check out the input parameters");
-        }
         return ResponseWrapper.fail(ex.getCode());
+    }
+
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    public Object exceptionHandler(Throwable throwable){
+        if(throwable instanceof EmptyResultDataAccessException){
+            logger.warn("There is a EmptyResultDataAccessException, because the parameter is error");
+        }
+        return ResponseWrapper.fail(ProcessingStatusCode.PARAM_NOT_VALID);
     }
 
     @Override

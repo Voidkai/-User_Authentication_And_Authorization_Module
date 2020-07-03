@@ -4,10 +4,8 @@ import corp.sap.internal.exp.dto.ResponseWrapper;
 import corp.sap.internal.exp.domain.ServiceTicket;
 import corp.sap.internal.exp.domain.User;
 import corp.sap.internal.exp.service.TicketWithPermissionCheckService;
-import corp.sap.internal.exp.service.exceptions.NoDataAccessException;
 import corp.sap.internal.exp.service.exceptions.NoPermissionException;
 import corp.sap.internal.exp.service.exceptions.NotSupportedException;
-import corp.sap.internal.exp.service.exceptions.ParamNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +29,7 @@ public class ServiceTicketController {
     }
 
     @GetMapping("/{id}")
-    public Object getTicket(Authentication auth, @PathVariable(value = "id") Integer id) throws NotSupportedException, NoPermissionException, NoDataAccessException, ParamNotValidException {
+    public Object getTicket(Authentication auth, @PathVariable(value = "id") Integer id) throws NotSupportedException, NoPermissionException{
         Integer userId = ((User) auth.getPrincipal()).getId();
         ServiceTicket rt = ticketWithPermissionCheckService.getTicketByTicketId(userId, id);
         return ResponseWrapper.success(rt);
@@ -45,7 +43,7 @@ public class ServiceTicketController {
     }
 
     @PatchMapping("/{id}")
-    public Object updateTicket(Authentication auth, @PathVariable(value = "id") Integer id, @RequestBody ServiceTicket serviceTicket) throws NotSupportedException, NoPermissionException, NoDataAccessException, ParamNotValidException {
+    public Object updateTicket(Authentication auth, @PathVariable(value = "id") Integer id, @RequestBody ServiceTicket serviceTicket) throws NotSupportedException, NoPermissionException{
         Integer userId = ((User) auth.getPrincipal()).getId();
         ServiceTicket rt = ticketWithPermissionCheckService.updateTicket(id, userId, serviceTicket.getContent());
         return ResponseWrapper.success(rt);
@@ -53,13 +51,9 @@ public class ServiceTicketController {
     }
 
     @DeleteMapping("/{id}")
-    public Object delTicket(Authentication auth, @PathVariable(value = "id") Integer id) throws NotSupportedException, ParamNotValidException, NoPermissionException, NoDataAccessException {
+    public Object delTicket(Authentication auth, @PathVariable(value = "id") Integer id) throws NotSupportedException,NoPermissionException{
         Integer userId = ((User) auth.getPrincipal()).getId();
         Integer rt = ticketWithPermissionCheckService.delTicket(id, userId);
-        if ( rt == 0) {
-            throw new ParamNotValidException("");
-        }
-
         return ResponseWrapper.success(rt);
     }
 }
