@@ -40,8 +40,6 @@ public class PermissionCheckTest {
 
     public static final String CODE_NO_PERMISSION = "3001";
 
-    public static final String CODE_NO_DATA_ACCESS = "3002";
-
     public static final String CODE_SUCCESS = "200";
 
     @Autowired

@@ -4,7 +4,6 @@ import corp.sap.internal.exp.dao.DataAccessDao;
 import corp.sap.internal.exp.dao.ServiceTicketDao;
 import corp.sap.internal.exp.domain.DataAccess;
 import corp.sap.internal.exp.domain.ServiceTicket;
-import corp.sap.internal.exp.dto.ProcessingStatusCode;
 import corp.sap.internal.exp.service.Impl.RBACDataAccessChallenge;
 import corp.sap.internal.exp.service.Impl.RBACPermissionChallenge;
 import corp.sap.internal.exp.service.exceptions.NoDataAccessException;
@@ -17,16 +16,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ServiceTicketService {
+public class TicketWithDataAccessCheckService {
 
     @Autowired
     private ServiceTicketDao serviceTicketDao;
     @Autowired
     private DataAccessDao dataAccessDao;
-
-    // inject by profile
-    @Autowired
-    private PrivilegeCheckService privilegeCheckService;
 
     @Autowired
     private DataAccessCheckService dataAccessCheckService;
@@ -39,47 +34,35 @@ public class ServiceTicketService {
         return serviceTicketDao.getTicketByUserId(userId);
     }
 
-    public ServiceTicket getTicketByTicketId(Integer userId, Integer id) throws NotSupportedException, NoPermissionException, NoDataAccessException, ParamNotValidException {
-        RBACPermissionChallenge getAllTicketRBACPermission = new RBACPermissionChallenge(userId,"service_ticket_read");
-        Boolean permissionCheck = privilegeCheckService.check(getAllTicketRBACPermission);
+    public ServiceTicket getTicketByTicketId(Integer userId, Integer id) throws NotSupportedException, NoDataAccessException, ParamNotValidException {
         RBACDataAccessChallenge rbacDataAccessChallenge = new RBACDataAccessChallenge("service_ticket",userId,id);
         Boolean dataAccessCheck = dataAccessCheckService.check(rbacDataAccessChallenge);
-        if (!permissionCheck) throw new NoPermissionException("");
-        else if(!dataAccessCheck) throw new NoDataAccessException("");
+        if(!dataAccessCheck) throw new NoDataAccessException("");
         ServiceTicket serviceTicket = serviceTicketDao.getTicketByTicketId(id);
         if(serviceTicket == null) throw new ParamNotValidException("");
         return serviceTicketDao.getTicketByTicketId(id);
     }
 
-    public ServiceTicket addTicket(Integer userId, String content) throws NotSupportedException, NoPermissionException {
-        RBACPermissionChallenge getAllTicketRBACPermission = new RBACPermissionChallenge(userId,"service_ticket_create");
-        Boolean permissionCheck = privilegeCheckService.check(getAllTicketRBACPermission);
-        if (!permissionCheck) throw new NoPermissionException("");
+    public ServiceTicket addTicket(Integer userId, String content){
         Integer id = serviceTicketDao.addTicket(userId, content);
         dataAccessDao.addDataAccess(userId,"service_ticket",id);
         return serviceTicketDao.getTicketByTicketId(id);
 
     }
 
-    public ServiceTicket updateTicket(Integer id, Integer userId, String content) throws NotSupportedException, NoPermissionException, NoDataAccessException {
-        RBACPermissionChallenge getAllTicketRBACPermission = new RBACPermissionChallenge(userId,"service_ticket_update");
-        Boolean permissionCheck = privilegeCheckService.check(getAllTicketRBACPermission);
+    public ServiceTicket updateTicket(Integer id, Integer userId, String content) throws NotSupportedException, NoDataAccessException {
         RBACDataAccessChallenge rbacDataAccessChallenge = new RBACDataAccessChallenge("service_ticket",userId,id);
         Boolean dataAccessCheck = dataAccessCheckService.check(rbacDataAccessChallenge);
-        if (!permissionCheck) throw new NoPermissionException("");
-        else if(!dataAccessCheck) throw new NoDataAccessException("");
+        if(!dataAccessCheck) throw new NoDataAccessException("");
         serviceTicketDao.updateTicket(id, userId, content);
 
         return serviceTicketDao.getTicketByTicketId(id);
     }
 
-    public Integer delTicket(Integer id, Integer userId) throws NotSupportedException, NoPermissionException, NoDataAccessException {
-        RBACPermissionChallenge getAllTicketRBACPermission = new RBACPermissionChallenge(userId,"service_ticket_delete");
-        Boolean permissionCheck = privilegeCheckService.check(getAllTicketRBACPermission);
+    public Integer delTicket(Integer id, Integer userId) throws NotSupportedException, NoDataAccessException {
         RBACDataAccessChallenge rbacDataAccessChallenge = new RBACDataAccessChallenge("service_ticket",userId,id);
         Boolean dataAccessCheck = dataAccessCheckService.check(rbacDataAccessChallenge);
-        if (!permissionCheck) throw new NoPermissionException("");
-        else if(!dataAccessCheck) throw new NoDataAccessException("");
+        if(!dataAccessCheck) throw new NoDataAccessException("");
         List<DataAccess> list= dataAccessDao.getDataAccessByUserId(userId, "service_ticket");
         for(DataAccess d : list){
             if(d.getEid() == id) dataAccessDao.delDataAccess(d.getId());

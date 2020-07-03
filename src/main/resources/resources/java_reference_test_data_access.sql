@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `java_reference` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `java_reference`;
+CREATE DATABASE IF NOT EXISTS `java_reference_test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `java_reference_test`;
 DROP TABLE IF EXISTS `privileges`;
 CREATE TABLE `privileges` (
   `privilege_id` int(11) NOT NULL,
@@ -109,7 +109,7 @@ ALTER TABLE `privilege_role`
 ALTER TABLE `roles`
   MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 ALTER TABLE `role_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 ALTER TABLE `service_ticket`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 ALTER TABLE `users`
