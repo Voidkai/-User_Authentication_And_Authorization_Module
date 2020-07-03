@@ -75,22 +75,22 @@ public class ServiceTicketControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(httpBasic("admin", "123456")))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("data[0].content").value(contentTest))
+                .andExpect(jsonPath("data.content").value(contentTest))
                 .andReturn();
 
-        Integer ticketId = JsonPath.parse(mvcResult.getResponse().getContentAsString()).read("data[0].id", Integer.class);
+        Integer ticketId = JsonPath.parse(mvcResult.getResponse().getContentAsString()).read("data.id", Integer.class);
 
         // READ
         mockMvc.perform(get("/api/v3/ticket/{id}", ticketId).with(httpBasic("admin", "123456")))
-                .andExpect(status().isOk()).andExpect(jsonPath("data[0].content").value(contentTest));
+                .andExpect(status().isOk()).andExpect(jsonPath("data.content").value(contentTest));
 
         // UPDATE
         mockMvc.perform(patch("/api/v3/ticket/{id}", ticketId).content(mapper.writeValueAsString(new ServiceTicket(contentUpdated))).contentType(MediaType.APPLICATION_JSON).with(httpBasic("admin", "123456")))
-                .andExpect(jsonPath("data[0].content").value(contentUpdated));
+                .andExpect(jsonPath("data.content").value(contentUpdated));
 
         // READ again
         mockMvc.perform(get("/api/v3/ticket/{id}", ticketId).with(httpBasic("admin", "123456")))
-                .andExpect(status().isOk()).andExpect(jsonPath("data[0].content").value(contentUpdated));
+                .andExpect(status().isOk()).andExpect(jsonPath("data.content").value(contentUpdated));
 
 
         // DELETE

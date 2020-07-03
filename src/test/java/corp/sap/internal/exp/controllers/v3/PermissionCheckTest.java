@@ -40,6 +40,8 @@ public class PermissionCheckTest {
 
     public static final String CODE_NO_PERMISSION = "3001";
 
+    public static final String CODE_NO_DATA_ACCESS = "3002";
+
     public static final String CODE_SUCCESS = "200";
 
     @Autowired
@@ -83,7 +85,7 @@ public class PermissionCheckTest {
 
             String username = "user" + userId;
 
-            logger.info("test with %s", username);
+            logger.info("test with" + username);
 
             // CREATE
             MvcResult mvcResult = mockMvc
@@ -92,14 +94,14 @@ public class PermissionCheckTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .with(httpBasic(username, password)))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("errorCode").value(userId % 3 == 2 ? CODE_NO_PERMISSION : CODE_SUCCESS)) //just processor has no create permission
+                    .andExpect(jsonPath("errorCode").value(userId % 3 == 2 ? CODE_NO_PERMISSION : CODE_SUCCESS))//just processor has no create permission
                     .andReturn();
 
             // Default Operating ticketId equals user_id For testing processor
             Integer ticketId = userId;
 
             if (userId % 3 != 2) {
-                ticketId = JsonPath.parse(mvcResult.getResponse().getContentAsString()).read("data[0].id", Integer.class);
+                ticketId = JsonPath.parse(mvcResult.getResponse().getContentAsString()).read("data.id", Integer.class);
             }
 
             // READ

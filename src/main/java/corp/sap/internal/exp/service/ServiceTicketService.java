@@ -10,6 +10,7 @@ import corp.sap.internal.exp.service.Impl.RBACPermissionChallenge;
 import corp.sap.internal.exp.service.exceptions.NoDataAccessException;
 import corp.sap.internal.exp.service.exceptions.NoPermissionException;
 import corp.sap.internal.exp.service.exceptions.NotSupportedException;
+import corp.sap.internal.exp.service.exceptions.ParamNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,14 +39,15 @@ public class ServiceTicketService {
         return serviceTicketDao.getTicketByUserId(userId);
     }
 
-    public ServiceTicket getTicketByTicketId(Integer userId, Integer id) throws NotSupportedException, NoPermissionException, NoDataAccessException {
+    public ServiceTicket getTicketByTicketId(Integer userId, Integer id) throws NotSupportedException, NoPermissionException, NoDataAccessException, ParamNotValidException {
         RBACPermissionChallenge getAllTicketRBACPermission = new RBACPermissionChallenge(userId,"service_ticket_read");
         Boolean permissionCheck = privilegeCheckService.check(getAllTicketRBACPermission);
         RBACDataAccessChallenge rbacDataAccessChallenge = new RBACDataAccessChallenge("service_ticket",userId,id);
         Boolean dataAccessCheck = dataAccessCheckService.check(rbacDataAccessChallenge);
         if (!permissionCheck) throw new NoPermissionException("");
         else if(!dataAccessCheck) throw new NoDataAccessException("");
-
+        ServiceTicket serviceTicket = serviceTicketDao.getTicketByTicketId(id);
+        if(serviceTicket == null) throw new ParamNotValidException("");
         return serviceTicketDao.getTicketByTicketId(id);
     }
 

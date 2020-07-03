@@ -34,7 +34,7 @@ public class ServiceTicketController {
     }
 
     @GetMapping("/{id}")
-    public Object getTicket(Authentication auth, @PathVariable(value = "id") Integer id) throws NotSupportedException, NoPermissionException, NoDataAccessException {
+    public Object getTicket(Authentication auth, @PathVariable(value = "id") Integer id) throws NotSupportedException, NoPermissionException, NoDataAccessException, ParamNotValidException {
         Integer userId = ((User) auth.getPrincipal()).getId();
         ServiceTicket rt = serviceTicketService.getTicketByTicketId(userId, id);
         return ResponseWrapper.success(rt);
@@ -50,10 +50,7 @@ public class ServiceTicketController {
     @PatchMapping("/{id}")
     public Object updateTicket(Authentication auth, @PathVariable(value = "id") Integer id, @RequestBody ServiceTicket serviceTicket) throws NotSupportedException, NoPermissionException, NoDataAccessException, ParamNotValidException {
         Integer userId = ((User) auth.getPrincipal()).getId();
-        Object rt = serviceTicketService.updateTicket(id, userId, serviceTicket.getContent());
-        if (((List<ServiceTicket>)rt).isEmpty()) {
-            throw new ParamNotValidException("");
-        }
+        ServiceTicket rt = serviceTicketService.updateTicket(id, userId, serviceTicket.getContent());
         return ResponseWrapper.success(rt);
 
     }
