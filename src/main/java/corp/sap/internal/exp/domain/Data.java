@@ -1,6 +1,10 @@
 package corp.sap.internal.exp.domain;
 
-public class Data {
+import java.io.Serializable;
+
+public class Data implements Serializable {
+
+    private static final long serialVersionUID = -3749473825147441328L;
     private Integer id;
     private String name;
     private Integer code;

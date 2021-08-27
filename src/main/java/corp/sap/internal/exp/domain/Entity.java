@@ -2,18 +2,20 @@ package corp.sap.internal.exp.domain;
 
 import java.io.Serializable;
 
-public class Role implements Serializable {
+public class Entity implements Serializable {
 
-    private static final long serialVersionUID = 1570489653361552972L;
+    private static final long serialVersionUID = 1247525667210531424L;
     private Integer id;
     private String name;
-    private String description;
+    private Integer code;
 
-    public Role(){}
+    public Entity() {
+    }
 
-    public Role(Integer id, String name) {
+    public Entity(Integer id, String name, Integer code) {
         this.id = id;
         this.name = name;
+        this.code = code;
     }
 
     public Integer getId() {
@@ -32,11 +34,11 @@ public class Role implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 }

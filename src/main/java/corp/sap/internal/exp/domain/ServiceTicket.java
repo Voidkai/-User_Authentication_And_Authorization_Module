@@ -14,7 +14,7 @@ public class ServiceTicket implements Serializable {
     private Timestamp updateTime;
 
     @CreatedBy
-    private Integer userId;
+    private Integer creator;
     private String content;
 
     public ServiceTicket() {
@@ -24,10 +24,10 @@ public class ServiceTicket implements Serializable {
         this.content = content;
     }
 
-    public ServiceTicket(Integer id, Timestamp updateTime, Integer userId, String content) {
+    public ServiceTicket(Integer id, Timestamp updateTime, Integer creator, String content) {
         this.id = id;
         this.updateTime = updateTime;
-        this.userId = userId;
+        this.creator = creator;
         this.content = content;
     }
 
@@ -55,11 +55,11 @@ public class ServiceTicket implements Serializable {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getCreator() {
+        return creator;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setCreator(Integer creator) {
+        this.creator = creator;
     }
 }

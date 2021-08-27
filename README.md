@@ -2,4 +2,7 @@
 
 ## Introduction
 
-## [CI Server](http://w-4cv752w7fb.apj.global.corp.sap:30008/job/af-java-reference/)
+
+## docker
+
+`docker run --name java_reference -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -d mysql`

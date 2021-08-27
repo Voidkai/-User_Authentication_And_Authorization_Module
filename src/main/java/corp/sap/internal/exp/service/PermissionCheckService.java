@@ -4,7 +4,7 @@ import corp.sap.internal.exp.service.exceptions.NotSupportedException;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface PrivilegeCheckService {
+public interface PermissionCheckService {
 
     Boolean check(PermissionChallenge permissionChallenge) throws NotSupportedException;
 

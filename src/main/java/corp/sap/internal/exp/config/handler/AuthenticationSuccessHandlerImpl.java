@@ -18,14 +18,16 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
     UserDetailsService userDetailsService;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
+    public void onAuthenticationSuccess(
+            HttpServletRequest httpServletRequest,
+            HttpServletResponse httpServletResponse,
+            Authentication authentication) throws IOException {
 
-        //返回json数据
+        //Return json
         ResponseWrapper result = ResponseWrapper.success();
-        //处理编码方式，防止中文乱码的情况
+        //decoding
         httpServletResponse.setContentType("application/json;charset=utf-8");
-        //塞到HttpServletResponse中返回给前台
-
+        //return to front end by HttpServletResponse
         httpServletResponse.getWriter().write(result.toString());
     }
 }

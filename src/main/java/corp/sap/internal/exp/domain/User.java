@@ -1,6 +1,5 @@
 package corp.sap.internal.exp.domain;
 
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +22,7 @@ public class User implements UserDetails {
 
     private String password;
 
-    private List<GrantedAuthority> privileges;
+    private List<GrantedAuthority> permissions;
 
     public User(){
     }
@@ -33,11 +32,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public User(Integer id,String username, String password,List<GrantedAuthority>  privileges){
+    public User(Integer id,String username, String password,List<GrantedAuthority>  permissions){
         this.id = id;
         this.username = username;
         this.password = password;
-        this.privileges = privileges;
+        this.permissions = permissions;
     }
 
     public void setUsername(String username) {
@@ -48,8 +47,12 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void setPrivileges(List<GrantedAuthority> privileges) {
-        this.privileges = privileges;
+    public List<GrantedAuthority> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<GrantedAuthority> permissions) {
+        this.permissions = permissions;
     }
 
     public Integer getId(){
@@ -63,7 +66,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return privileges;
+        return permissions;
     }
 
     @Override

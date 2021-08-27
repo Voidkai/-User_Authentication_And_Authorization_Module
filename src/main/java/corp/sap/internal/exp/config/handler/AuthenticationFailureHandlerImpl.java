@@ -15,34 +15,38 @@ import java.io.IOException;
 @Component
 public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHandler {
     @Override
-    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        //返回json数据
+    public void onAuthenticationFailure(
+            HttpServletRequest httpServletRequest,
+            HttpServletResponse httpServletResponse,
+            AuthenticationException e)
+            throws IOException, ServletException {
+        //return Json Data
         ResponseWrapper result = null;
         if (e instanceof AccountExpiredException) {
-            //账号过期
+            //User account expired
             result = ResponseWrapper.fail(ProcessingStatusCode.USER_ACCOUNT_EXPIRED);
         } else if (e instanceof BadCredentialsException) {
-            //密码错误
+            //User's credentials error
             result = ResponseWrapper.fail(ProcessingStatusCode.USER_CREDENTIALS_ERROR);
         } else if (e instanceof CredentialsExpiredException) {
-            //密码过期
+            //User's credentials expired
             result = ResponseWrapper.fail(ProcessingStatusCode.USER_CREDENTIALS_EXPIRED);
         } else if (e instanceof DisabledException) {
-            //账号不可用
+            //User's account Disable
             result = ResponseWrapper.fail(ProcessingStatusCode.USER_ACCOUNT_DISABLE);
         } else if (e instanceof LockedException) {
-            //账号锁定
+            //User's account locked
             result = ResponseWrapper.fail(ProcessingStatusCode.USER_ACCOUNT_LOCKED);
         } else if (e instanceof InternalAuthenticationServiceException) {
-            //用户不存在
+            //User's account not exist
             result = ResponseWrapper.fail(ProcessingStatusCode.USER_ACCOUNT_NOT_EXIST);
         } else {
-            //其他错误
+            //Other common error
             result = ResponseWrapper.fail(ProcessingStatusCode.COMMON_FAIL);
         }
-        //处理编码方式，防止中文乱码的情况
+        //Decoding
         httpServletResponse.setContentType("application/json;charset=utf-8");
-        //塞到HttpServletResponse中返回给前台
+        //return to front end by HttpServletResponse
         httpServletResponse.getWriter().write(result.toString());
     }
 }

@@ -39,7 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //configure the way of auth
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+        auth
+                .userDetailsService(userDetailsService())
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -47,13 +49,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //HTTP configuration, includes login and logout, exception and session management and soon
         httpSecurity
                 .httpBasic()
-                .and()
-                .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
+                .formLogin()
+                .and()
                 .authorizeRequests()
-                .antMatchers("/", "/login").permitAll()
-                .antMatchers("/api/v3/ticket/**").authenticated()
+                .antMatchers("/", "/login","/api/v3/user/register").permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/api/v3/ticket/**","/api/v3/user/**", "api/v3/permission/**").authenticated()
                 .and()
                 .logout()
                 .permitAll()
@@ -62,8 +66,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .maximumSessions(1);
 
-        httpSecurity.csrf().disable();
-
+        httpSecurity
+                .csrf()
+                .disable();
     }
 
     @Bean

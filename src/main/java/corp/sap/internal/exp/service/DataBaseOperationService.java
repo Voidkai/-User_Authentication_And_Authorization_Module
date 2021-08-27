@@ -20,8 +20,24 @@ public class DataBaseOperationService {
     @Autowired
     DataPreparationService dataPreparationService;
 
+    private ClassPathResource setPath(String path){
+        return new ClassPathResource(path);
+    }
+
     public void setupDataBase(String path) {
-        ClassPathResource classPathResource = new ClassPathResource(path);
+        ClassPathResource classPathResource = setPath(path);
+        try {
+           String[] strSplit = IOUtils.toString(classPathResource.getInputStream()).split(";");
+           jdbcTemplate.batchUpdate(strSplit);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setupData(String path) {
+        ClassPathResource classPathResource = setPath(path);
         try {
             String[] strSplit = IOUtils.toString(classPathResource.getInputStream()).split(";");
             jdbcTemplate.batchUpdate(strSplit);

@@ -67,7 +67,7 @@ public class DataPreparationService {
         List<String> sqls = new ArrayList<>();
         for(int i = 1;i<len;i++){
             if(i % 3 == 2){
-                sqls.add("INSERT INTO data_access VALUES(" + i+", 10001,"+i+","+i+")");
+                sqls.add("INSERT INTO entity_access VALUES(" + i+", 10001,"+i+","+i+")");
             }
         }
         jdbcTemplate.batchUpdate(sqls.toArray(new String[0]));

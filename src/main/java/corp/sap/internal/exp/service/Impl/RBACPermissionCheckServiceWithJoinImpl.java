@@ -1,10 +1,10 @@
 package corp.sap.internal.exp.service.Impl;
 
-import corp.sap.internal.exp.dao.PrivilegeDao;
+import corp.sap.internal.exp.dao.PermissionDao;
 import corp.sap.internal.exp.dao.UserDao;
-import corp.sap.internal.exp.domain.Privilege;
+import corp.sap.internal.exp.domain.Permission;
 import corp.sap.internal.exp.service.PermissionChallenge;
-import corp.sap.internal.exp.service.PrivilegeCheckService;
+import corp.sap.internal.exp.service.PermissionCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -14,9 +14,9 @@ import java.util.List;
 
 @Service
 @Profile({"rbac-join"})
-public class RBACPrivilegeCheckServiceWithJoinImpl implements PrivilegeCheckService {
+public class RBACPermissionCheckServiceWithJoinImpl implements PermissionCheckService {
     @Autowired
-    private PrivilegeDao privilegeDao;
+    private PermissionDao permissionDao;
 
 
     @Override
@@ -24,14 +24,14 @@ public class RBACPrivilegeCheckServiceWithJoinImpl implements PrivilegeCheckServ
         if (permissionChallenge instanceof RBACPermissionChallenge) {
             RBACPermissionChallenge rbacPermissionChallenge = (RBACPermissionChallenge) permissionChallenge;
             Integer userId = rbacPermissionChallenge.getUserId();
-            String privCode = rbacPermissionChallenge.getPrivilegeCode();
+            String permCode = rbacPermissionChallenge.getPrivilegeCode();
 
-            List<Privilege> privList = privilegeDao.getPriByUserId(userId);
+            List<Permission> permList = permissionDao.getPermByUserId(userId);
             List<String> codeList = new ArrayList<>();
-            for (Privilege priv : privList) codeList.add(priv.getPrivilegeCode());
+            for (Permission perm : permList) codeList.add(perm.getCode());
 
             for (String code : codeList) {
-                if (code.equals(privCode)) {
+                if (code.equals(permCode)) {
                     return true;
                 }
             }

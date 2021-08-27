@@ -1,10 +1,10 @@
 package corp.sap.internal.exp.service.Impl;
 
-import corp.sap.internal.exp.dao.PrivilegeDao;
-import corp.sap.internal.exp.domain.Privilege;
+import corp.sap.internal.exp.dao.PermissionDao;
+import corp.sap.internal.exp.domain.Permission;
 import corp.sap.internal.exp.dto.ProcessingStatusCode;
 import corp.sap.internal.exp.service.PermissionChallenge;
-import corp.sap.internal.exp.service.PrivilegeCheckService;
+import corp.sap.internal.exp.service.PermissionCheckService;
 import corp.sap.internal.exp.service.exceptions.NotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -18,10 +18,10 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @Profile({"rbac-basic-cache"})
-public class RBACPrivilegeCheckServiceWithCacheImpl implements PrivilegeCheckService {
+public class RBACPermissionCheckServiceWithCacheImpl implements PermissionCheckService {
 
     @Autowired
-    private PrivilegeDao privilegeDao;
+    private PermissionDao permissionDao;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -40,9 +40,9 @@ public class RBACPrivilegeCheckServiceWithCacheImpl implements PrivilegeCheckSer
                 return operations.get(key);
             } else {
 
-                List<Privilege> privList = privilegeDao.getPriByUserId(rbacPermissionChallenge.getUserId());
+                List<Permission> permList = permissionDao.getPermByUserId(rbacPermissionChallenge.getUserId());
                 List<String> codeList = new ArrayList<>();
-                for (Privilege priv : privList) codeList.add(priv.getPrivilegeCode());
+                for (Permission perm : permList) codeList.add(perm.getCode());
 
                 for (String code : codeList) {
                     if (code.equals(rbacPermissionChallenge.getPrivilegeCode())) {

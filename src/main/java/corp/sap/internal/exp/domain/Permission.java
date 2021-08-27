@@ -2,18 +2,21 @@ package corp.sap.internal.exp.domain;
 
 import java.io.Serializable;
 
-public class Role implements Serializable {
+public class Permission implements Serializable {
 
-    private static final long serialVersionUID = 1570489653361552972L;
+    private static final long serialVersionUID = -3405368204674664773L;
+
     private Integer id;
-    private String name;
+    private String code;
     private String description;
 
-    public Role(){}
+    public Permission() {
+    }
 
-    public Role(Integer id, String name) {
+    public Permission(Integer id, String code, String description) {
         this.id = id;
-        this.name = name;
+        this.code = code;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -24,12 +27,12 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCode() {
+        return code;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getDescription() {

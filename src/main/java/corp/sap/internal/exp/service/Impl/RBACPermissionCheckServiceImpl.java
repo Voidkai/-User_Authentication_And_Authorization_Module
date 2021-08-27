@@ -1,12 +1,12 @@
 package corp.sap.internal.exp.service.Impl;
 
-import corp.sap.internal.exp.dao.PrivilegeDao;
+import corp.sap.internal.exp.dao.PermissionDao;
 import corp.sap.internal.exp.dao.UserDao;
-import corp.sap.internal.exp.domain.Privilege;
+import corp.sap.internal.exp.domain.Permission;
 import corp.sap.internal.exp.domain.Role;
 import corp.sap.internal.exp.dto.ProcessingStatusCode;
 import corp.sap.internal.exp.service.PermissionChallenge;
-import corp.sap.internal.exp.service.PrivilegeCheckService;
+import corp.sap.internal.exp.service.PermissionCheckService;
 import corp.sap.internal.exp.service.exceptions.NotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -17,10 +17,10 @@ import java.util.List;
 
 @Service
 @Profile({"rbac-basic"})
-public class RBACPrivilegeCheckServiceImpl implements PrivilegeCheckService {
-    
+public class RBACPermissionCheckServiceImpl implements PermissionCheckService {
+
     @Autowired
-    private PrivilegeDao privilegeDao;
+    private PermissionDao permissionDao;
 
     @Autowired
     private UserDao userDao;
@@ -30,21 +30,21 @@ public class RBACPrivilegeCheckServiceImpl implements PrivilegeCheckService {
         if (permissionChallenge instanceof RBACPermissionChallenge) {
             RBACPermissionChallenge rbacPermissionChallenge = (RBACPermissionChallenge) permissionChallenge;
             Integer userId = rbacPermissionChallenge.getUserId();
-            String privCode = rbacPermissionChallenge.getPrivilegeCode();
+            String permCode = rbacPermissionChallenge.getPrivilegeCode();
             List<Role> roleList = userDao.getRoleByUserId(userId);
 
-            List<Privilege> privIdList = new ArrayList<>();
-            for (Role role : roleList) privIdList.addAll(privilegeDao.getPrivByRoleId(role.getRoleId()));
+            List<Permission> permIdList = new ArrayList<>();
+            for (Role role : roleList) permIdList.addAll(permissionDao.getPermByRoleId(role.getId()));
 
-            List<Privilege> privList = new ArrayList<>();
-            for (Privilege privilege : privIdList)
-                privList.addAll(privilegeDao.getPrivByPrivId(privilege.getPrivilegeId()));
+            List<Permission> permList = new ArrayList<>();
+            for (Permission permission : permIdList)
+                permList.addAll(permissionDao.getPermByPrivId(permission.getId()));
 
             List<String> codeList = new ArrayList<>();
-            for (Privilege priv : privList) codeList.add(priv.getPrivilegeCode());
+            for (Permission perm : permList) codeList.add(perm.getCode());
 
             for (String code : codeList) {
-                if (code.equals(privCode)) {
+                if (code.equals(permCode)) {
                     return true;
                 }
             }

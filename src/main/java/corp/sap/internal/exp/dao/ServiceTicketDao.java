@@ -25,7 +25,7 @@ public class ServiceTicketDao {
     }
 
     public List<ServiceTicket> getTicketByUserId(Integer userId) {
-        String sql = "select * from service_ticket where user_id =" + userId;
+        String sql = "select * from service_ticket where creator =" + userId;
         return jdbcTemplate.query(sql, new TicketRowMapper());
     }
 
@@ -48,7 +48,7 @@ public class ServiceTicketDao {
     }
 
     public List<Integer> getTicketIdByUserId(Integer userId){
-        String sql = "select id from service_ticket where user_id = "+userId;
+        String sql = "select id from service_ticket where creator = "+userId;
         return jdbcTemplate.query(sql, new RowMapper<Integer>() {
             @Override
             public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -65,7 +65,7 @@ class TicketRowMapper implements RowMapper<ServiceTicket>{
         ServiceTicket serviceTicket = new ServiceTicket();
         serviceTicket.setId(resultSet.getInt("id"));
         serviceTicket.setUpdateTime(resultSet.getTimestamp("update_time"));
-        serviceTicket.setUserId(resultSet.getInt("user_id"));
+        serviceTicket.setCreator(resultSet.getInt("creator"));
         serviceTicket.setContent(resultSet.getString("content"));
         return serviceTicket;
     }

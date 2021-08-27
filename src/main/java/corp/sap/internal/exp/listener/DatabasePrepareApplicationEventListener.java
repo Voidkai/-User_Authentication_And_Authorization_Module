@@ -14,6 +14,7 @@ public class DatabasePrepareApplicationEventListener implements ApplicationListe
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        dataBaseOperationService.setupDataBase("resources/java_reference.sql");
+        dataBaseOperationService.setupDataBase("resources/java_reference_db.sql");
+        dataBaseOperationService.setupData("resources/java_reference_data.sql");
     }
 }

@@ -54,9 +54,9 @@ public class DataAccessCheckTest {
 
         for (int i = 1; i < len; i++) {
             ServiceTicket serviceTicket = ticketWithDataAccessCheckService.addTicket(i, "content");
-            ticketWithDataAccessCheckService.getTicketByTicketId(serviceTicket.getUserId(),serviceTicket.getId());
-            ticketWithDataAccessCheckService.updateTicket(serviceTicket.getId(),serviceTicket.getUserId(), "New content");
-            ticketWithDataAccessCheckService.delTicket(serviceTicket.getId(),serviceTicket.getUserId());
+            ticketWithDataAccessCheckService.getTicketByTicketId(serviceTicket.getCreator(),serviceTicket.getId());
+            ticketWithDataAccessCheckService.updateTicket(serviceTicket.getId(),serviceTicket.getCreator(), "New content");
+            ticketWithDataAccessCheckService.delTicket(serviceTicket.getId(),serviceTicket.getCreator());
         }
     }
 }

@@ -1,17 +1,17 @@
 pipeline {
-  
+
     agent any
-    
-    tools { 
-        maven 'Maven 3' 
-        jdk 'jdk8' 
+
+    tools {
+        maven 'Maven 3'
+        jdk 'jdk8'
     }
 
     stages {
 
         stage('Test-RBAC-Basic') {
             steps {
-                sh 'mvn test -Dspring.profiles.active=test,rbac-basic'
+                sh 'mvn test -D spring.profiles.active=test,rbac-basic'
             }
         }
 
@@ -26,11 +26,11 @@ pipeline {
                 sh 'mvn test -Dspring.profiles.active=test,rbac-join'
             }
         }
-      
+
         stage('Build') {
             steps {
                 sh 'mvn clean package -Dspring.profiles.active=test,rbac-basic'
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             }
         }
 

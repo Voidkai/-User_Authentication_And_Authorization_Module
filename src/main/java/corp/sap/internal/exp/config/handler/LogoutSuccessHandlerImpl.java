@@ -14,10 +14,13 @@ import java.io.IOException;
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 
     @Override
-    public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+    public void onLogoutSuccess(
+            HttpServletRequest httpServletRequest,
+            HttpServletResponse httpServletResponse,
+            Authentication authentication)
+            throws IOException, ServletException {
         ResponseWrapper result = ResponseWrapper.success();
         httpServletResponse.setContentType("application/json;charset=utf-8");
-
         httpServletResponse.getWriter().write(result.toString());
     }
 }

@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/")
 public class IndexController {
 
-
 	@GetMapping("/")
 	public Map<String, String> index() {
 		Map<String, String> rt = new HashMap<>();
 		rt.put("service", "exp");
 		return rt;
 	}
-	
+
 }
