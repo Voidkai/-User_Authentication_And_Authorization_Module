@@ -3,7 +3,7 @@ package corp.sap.internal.exp.domain;
 import java.io.Serializable;
 
 public class EntityAccess implements Serializable {
-    private static final long serialVersionUID = -3405368204674664703L;
+    private static final long serialVersionUID = -950960556751864475L;
     private Integer id;
     private Integer entityCode;
     private Integer entityId;

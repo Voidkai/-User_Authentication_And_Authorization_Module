@@ -4,7 +4,7 @@ import corp.sap.internal.exp.dto.ProcessingStatusCode;
 import corp.sap.internal.exp.dto.ResponseWrapper;
 import corp.sap.internal.exp.exceptions.BaseTechnicalException;
 import corp.sap.internal.exp.service.exceptions.NoDataAccessException;
-import corp.sap.internal.exp.service.exceptions.NoPermissionException;
+import corp.sap.internal.exp.service.exceptions.NoPrivilegeException;
 import corp.sap.internal.exp.service.exceptions.NotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +31,8 @@ public class ResponseFormatter implements ResponseBodyAdvice<Object> {
         if(ex instanceof NotSupportedException){
             logger.warn("There is a NotSupportedException, Please check out the Permission content");
         }
-        if(ex instanceof  NoPermissionException){
-            logger.warn("There is a NoPermissionException, please check out user's permission");
+        if(ex instanceof NoPrivilegeException){
+            logger.warn("There is a NoPrivilegeException, please check out user's permission");
         }
         if(ex instanceof NoDataAccessException){
             logger.warn("There is a NoDataAccessException, please make sure that the user can access the data");

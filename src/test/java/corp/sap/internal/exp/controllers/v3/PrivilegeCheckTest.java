@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PermissionCheckTest {
+public class PrivilegeCheckTest {
 
     public static final String CODE_NO_PERMISSION = "3001";
 

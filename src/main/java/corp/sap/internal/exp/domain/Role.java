@@ -7,13 +7,19 @@ public class Role implements Serializable {
     private static final long serialVersionUID = 1570489653361552972L;
     private Integer id;
     private String name;
+    private Integer baseRole;
     private String description;
 
     public Role(){}
 
-    public Role(Integer id, String name) {
-        this.id = id;
+    public Role(String name) {
         this.name = name;
+    }
+
+    public Role(String name, Integer baseRole, String description) {
+        this.name = name;
+        this.baseRole = baseRole;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -30,6 +36,14 @@ public class Role implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getBaseRole() {
+        return baseRole;
+    }
+
+    public void setBaseRole(Integer baseRole) {
+        this.baseRole = baseRole;
     }
 
     public String getDescription() {

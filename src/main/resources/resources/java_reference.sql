@@ -1,13 +1,13 @@
 CREATE DATABASE IF NOT EXISTS `java_reference` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `java_reference`;
-DROP TABLE IF EXISTS `permissions`;
-CREATE TABLE `permissions` (
+DROP TABLE IF EXISTS `privileges`;
+CREATE TABLE `privileges` (
     `id` int(11) NOT NULL,
   `code` int(11) NOT NULL,
   `description` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-TRUNCATE TABLE `permissions`;
-INSERT INTO `permissions` (`id`,`code`,`description`) VALUES
+TRUNCATE TABLE `privileges`;
+INSERT INTO `privileges` (`id`,`code`,`description`) VALUES
 (1, 100, 'service_ticket_truncate'),
 (2, 101, 'service_ticket_create'),
 (3, 102, 'service_ticket_read'),
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `entity` (
 TRUNCATE TABLE `entity`;
 INSERT INTO `entity` (`id`, `name`, `code`) VALUES
 (1, 'service_ticket', 10001);
-ALTER TABLE `permissions`
+ALTER TABLE `privileges`
   ADD PRIMARY KEY (`code`);
 ALTER TABLE `permission_role`
   ADD PRIMARY KEY (`id`);

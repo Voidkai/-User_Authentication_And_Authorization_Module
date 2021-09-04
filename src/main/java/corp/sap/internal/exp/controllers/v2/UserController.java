@@ -1,4 +1,4 @@
-package corp.sap.internal.exp.controllers.v3;
+package corp.sap.internal.exp.controllers.v2;
 
 import corp.sap.internal.exp.domain.User;
 import corp.sap.internal.exp.dto.ResponseWrapper;
@@ -11,9 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 
-
 @RestController
-@RequestMapping("/api/v3/user")
+@RequestMapping("/api/v2/user")
 public class UserController {
 
     @Autowired

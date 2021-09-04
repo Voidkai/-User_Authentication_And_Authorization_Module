@@ -1,8 +1,8 @@
-package corp.sap.internal.exp.controllers.v3;
+package corp.sap.internal.exp.controllers.v1;
 
-import corp.sap.internal.exp.dto.ResponseWrapper;
 import corp.sap.internal.exp.domain.ServiceTicket;
 import corp.sap.internal.exp.domain.User;
+import corp.sap.internal.exp.dto.ResponseWrapper;
 import corp.sap.internal.exp.service.TicketWithPrivilegeCheckService;
 import corp.sap.internal.exp.service.exceptions.NoPrivilegeException;
 import corp.sap.internal.exp.service.exceptions.NotSupportedException;
@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/v3/ticket")
+@RequestMapping(path = "/api/v1/ticket")
 public class ServiceTicketController {
 
     @Autowired

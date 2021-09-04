@@ -1,23 +1,23 @@
 package corp.sap.internal.exp.service.Impl;
 
-import corp.sap.internal.exp.service.PermissionChallenge;
+import corp.sap.internal.exp.service.PrivilegeChallenge;
 
-public class RBACPermissionChallenge implements PermissionChallenge {
+public class RBACPrivilegeChallenge implements PrivilegeChallenge {
 
     private Integer id;
     private String role;
     private String privilegeCode;
     private Integer userId;
 
-    public RBACPermissionChallenge() {
+    public RBACPrivilegeChallenge() {
     }
 
-    public RBACPermissionChallenge(String privilegeCode) {
+    public RBACPrivilegeChallenge(String privilegeCode) {
         this.privilegeCode = privilegeCode;
     }
 
 
-    public RBACPermissionChallenge(Integer userId, String privilegeCode) {
+    public RBACPrivilegeChallenge(Integer userId, String privilegeCode) {
         this.userId = userId;
         this.privilegeCode = privilegeCode;
     }
